@@ -37,8 +37,13 @@ class App extends Component {
         row: 0,
         col: 0
       },
-      tileUnderHero: 0
+      tileUnderHero: 0,
+      // monsters property will hold an array of monster objects which
+      // will describe their type, health, and map location
+      monsters: []
     }
+    // TODO: set up initial boss positioning
+    //bossPosition: {}
   }
 
 listener = (event) => {
@@ -56,23 +61,19 @@ listener = (event) => {
     switch (event.keyCode) {
 
       case UP_KEY:
-        console.log('up');
         nextPosition = helpers.getUpPosition(this.state.heroPosition, this.state.currentMap);
         break;
 
       case RIGHT_KEY:
-        console.log('right');
         nextPosition = helpers.getRightPosition(this.state.heroPosition, this.state.currentMap);
 
         break;
 
       case DOWN_KEY:
-        console.log('down');
         nextPosition = helpers.getDownPosition(this.state.heroPosition, this.state.currentMap);
         break;
 
       case LEFT_KEY:
-        console.log('left');
         nextPosition = helpers.getLeftPosition(this.state.heroPosition, this.state.currentMap);
         break;
 
@@ -113,9 +114,19 @@ listener = (event) => {
     let newMap = this.state.currentMap;
     newMap[heroPosition.row][heroPosition.col] = 2;
 
+    // number of monsters on the board
+    const monsterNumber = 3
+    let monstersArray = [];
+
+    // create initial array of monsters
+    monstersArray = helpers.createMonsters(monsterNumber, newMap);
+    // place monsters on map
+    newMap = helpers.placeMonsters(monstersArray, newMap);
+
     this.setState({
       heroPosition,
-      currentMap: newMap
+      currentMap: newMap,
+      monsters: monstersArray
     });
 
   }

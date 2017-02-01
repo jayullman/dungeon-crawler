@@ -66,6 +66,34 @@ export function placeHero(map) {
   return randomLocation;
 }
 
+export function createMonsters(monsterNumber, map) {
+  let monstersArray = [];
+
+  for (let i = 0; i < monsterNumber; i++) {
+    let monsterLocation = getRandomMapLocation(map);
+    monstersArray.push(new Monster(monsterLocation));
+  }
+
+  return monstersArray;
+}
+
+export function placeMonsters(monstersArray, map) {
+  let newMap = [...map];
+
+  for (let i = 0; i < monstersArray.length; i++) {
+    newMap[monstersArray[i].position.row][monstersArray[i].position.col] = 3;
+  }
+
+  return newMap;
+}
+
+function Monster(location) {
+  this.position = location;
+  // TODO: make health variable, possibly based on board
+  this.health = 10;
+
+}
+
 function getRandomMapLocation(map) {
   console.log(map[0].length);
   const ROW_LIMIT = map.length;
@@ -75,7 +103,6 @@ function getRandomMapLocation(map) {
   do {
   randomRow = Math.floor(Math.random() * ROW_LIMIT);
   randomCol = Math.floor(Math.random() * COL_LIMIT);
-  console.log(randomRow, randomCol);
   position = {row: randomRow, col: randomCol}
 
 } while (!(isSpaceValid(position, map)));
