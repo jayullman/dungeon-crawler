@@ -1,7 +1,6 @@
-const UP_KEY = 38;
-const RIGHT_KEY = 39;
-const DOWN_KEY = 40;
-const LEFT_KEY = 37;
+
+
+import * as helpers from '/.helpers';
 
 export default function(event) {
 
@@ -9,6 +8,7 @@ export default function(event) {
 
     case UP_KEY:
       console.log('up');
+      helpers.moveUp
       break;
 
     case RIGHT_KEY:
