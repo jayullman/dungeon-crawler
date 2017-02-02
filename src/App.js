@@ -3,7 +3,9 @@ import './styles/App.css';
 import Map from './components/Map';
 
 // import listener from './keyboard_listeners';
-import * as helpers from './helpers'
+import * as helpers from './helpers';
+
+import generateRooms from './generateRooms';
 
 const UP_KEY = 38;
 const RIGHT_KEY = 39;
@@ -27,6 +29,7 @@ const testMap = [
 ]
 
 
+
 class App extends Component {
   constructor() {
     super();
@@ -44,6 +47,10 @@ class App extends Component {
     }
     // TODO: set up initial boss positioning
     //bossPosition: {}
+
+    // NOTE: Test map, remove
+    // TEST MAP
+    this.testMap = generateRooms();
   }
 
 listener = (event) => {
@@ -129,6 +136,9 @@ listener = (event) => {
       monsters: monstersArray
     });
 
+
+
+
   }
 
   componentWillUnmount() {
@@ -142,8 +152,8 @@ listener = (event) => {
 
           <h2>Dungeon Crawler</h2>
         </div>
-
-        <Map map={this.state.currentMap} />
+        {/* NOTE: Test map, remove */}
+        <Map map={this.testMap} />
 
       </div>
     );

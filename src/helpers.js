@@ -94,7 +94,7 @@ function Monster(location) {
 
 }
 
-function getRandomMapLocation(map) {
+export function getRandomMapLocation(map) {
   console.log(map[0].length);
   const ROW_LIMIT = map.length;
   const COL_LIMIT = map[0].length;

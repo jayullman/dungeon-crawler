@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-size: .5em;
 }
 
 
@@ -12,13 +13,14 @@
 
 .map-container {
   border: 1px solid #000;
+  white-space: nowrap;
 }
 
 
 .tile {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   border: 1px solid #000;
 
 }
