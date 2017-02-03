@@ -10,6 +10,13 @@ const SOUTH = 'SOUTH';
 const EAST = 'EAST';
 const WEST = 'WEST';
 
+const TILE_BOSS_ROOM = 0;
+const TILE_ROOM = 2;
+const TILE_HALL = 3;
+const TILE_WALL = 1;
+const TILE_DOOR = 4;
+const TILE_LOCKED_DOOR = 5;
+
 const DIRECTIONS = [NORTH, SOUTH, EAST, WEST];
 
 const roomWidth = 10;
@@ -43,10 +50,11 @@ export default function generateRooms(map) {
     newMap.push(row);
   }
 
+  // find location of the first room which will be the boss room
   do {
     var bossRoomStartPosition = getRandomLocation(newMap);
 
-    tempMap = hollowRoom(bossRoomStartPosition, newMap);
+    tempMap = hollowRoom(bossRoomStartPosition, TILE_BOSS_ROOM, newMap);
   }
   // keep repeating until hollowRoom returns a map value
   while (!tempMap);
@@ -80,11 +88,10 @@ export default function generateRooms(map) {
 // create one new room built off of the room at roomPosition
 // return false if room cannot be hollowed out
 // return newMap otherwise
-function hollowRoom(roomPosition, map) {
+function hollowRoom(roomPosition, tileType, map) {
   roomPosition.height = roomPosition.height || 10;
   roomPosition.width = roomPosition.width || 10;
 
-  console.log(roomPosition);
   const ROW_LIMIT = map.length;
   const COL_LIMIT = map[0].length;
 
@@ -112,11 +119,11 @@ function hollowRoom(roomPosition, map) {
   // check for space for new room and adjacent spaces
   for (let i = beginRow; i < endRow; i++) {
     for (let j = beginCol; j < endCol; j++) {
-      if (map[i][j] !== 1
-        || map[i-1][j] !== 1
-        || map[i+1][j] !== 1
-        || map[i][j-1] !== 1
-        || map[i][j+1] !== 1) {
+      if (map[i][j] !== TILE_WALL
+        || map[i-1][j] !== TILE_WALL
+        || map[i+1][j] !== TILE_WALL
+        || map[i][j-1] !== TILE_WALL
+        || map[i][j+1] !== TILE_WALL) {
           return false;
         }
 
@@ -127,7 +134,7 @@ function hollowRoom(roomPosition, map) {
   let editedMap = [...map];
   for (let i = beginRow; i < endRow; i++) {
     for (let j = beginCol; j < endCol; j++) {
-        editedMap[i][j] = roomNumber;
+        editedMap[i][j] = tileType;
 
     }
   }
@@ -141,18 +148,20 @@ function hollowRoom(roomPosition, map) {
 // will keep building out until it cannot build anymore, then recurse back
 // if originDirection is null, it is the first room, ie the boss room
 // roomPosition is the location of the top left corner of the room
-function makeRooms(originDirection, roomPosition, map) {
+function makeRooms(originDirection, originRoom, map) {
   // TODO: figure out how to build off of boss room
   // select one door direction at random for the boss room,
   let directions = [];
   let newMap = [];
   let tempMap = [];
+  let tileType = TILE_ROOM;
 
   var numberOfRoomBranches = 1;
   let roomCount = 0;
   if (originDirection !== null) {
       // select a random number 2-3 of room branches off each room not including orgin direction
       numberOfRoomBranches = 3;
+
       if (originDirection === NORTH) {
         directions = [EAST, SOUTH, WEST];
       } else if (originDirection === EAST) {
@@ -190,29 +199,29 @@ function makeRooms(originDirection, roomPosition, map) {
     const newRoomWidth = Math.floor(Math.random() * 10) + 10;
     if (randomDirection === NORTH) {
       newRoom = {
-        row: roomPosition.row - newRoomHeight - 1,
-        col: roomPosition.col,
+        row: originRoom.row - newRoomHeight - 1,
+        col: originRoom.col,
         height: newRoomHeight,
         width: newRoomWidth
       }
     } else if (randomDirection === EAST) {
       newRoom = {
-        row: roomPosition.row,
-        col: roomPosition.col + roomPosition.width + 1,
+        row: originRoom.row,
+        col: originRoom.col + originRoom.width + 1,
         height: newRoomHeight,
         width: newRoomWidth
       }
     } else if (randomDirection === SOUTH) {
       newRoom = {
-        row: roomPosition.row + roomPosition.height + 1,
-        col: roomPosition.col,
+        row: originRoom.row + originRoom.height + 1,
+        col: originRoom.col,
         height: newRoomHeight,
         width: newRoomWidth
       }
     } else if (randomDirection === WEST) {
       newRoom = {
-        row: roomPosition.row,
-        col: roomPosition.col - newRoomWidth - 1,
+        row: originRoom.row,
+        col: originRoom.col - newRoomWidth - 1,
         height: newRoomHeight,
         width: newRoomWidth,
       }
@@ -220,11 +229,14 @@ function makeRooms(originDirection, roomPosition, map) {
   }
 
     // repeat if hollowRoom returns false
-  tempMap = hollowRoom(newRoom, map);
+  tempMap = hollowRoom(newRoom, tileType, map);
+  // if room creation is successful
   if (tempMap) {
     roomNumber++;
+    tempMap = attachDoor(randomDirection, originRoom, newRoom, tempMap);
 
     newMap = tempMap;
+
     makeRooms(randomDirection, newRoom, newMap);
   }
 
@@ -235,6 +247,63 @@ function makeRooms(originDirection, roomPosition, map) {
   return newMap;
 }
 
+// function takes two rooms and attaches them with a door
+function attachDoor(direction, originRoom, newRoom, map) {
+  let newMap = [...map];
+  let isDoorLocked = newMap[originRoom.row][originRoom.col] === TILE_BOSS_ROOM
+    ? true
+    : false;
+
+    // BUG: East and South door placement is not working
+  // all position on map where a door between the two rooms can exist
+  let commonBorders = [];
+  if (direction === NORTH) {
+    for (let i = 0; i < originRoom.width; i++) {
+      if (newMap[originRoom.row - 2][originRoom.col + i] === TILE_ROOM) {
+        commonBorders.push({row: originRoom.row - 1, col: originRoom.col + i});
+      }
+    }
+  } else if (direction === EAST) {
+    for (let i = 0; i < originRoom.height; i++) {
+      if (newMap[originRoom.row + i][originRoom.col + originRoom.width + 1] === TILE_ROOM) {
+        commonBorders.push({row: originRoom.row + i, col: originRoom.col + originRoom.width});
+      }
+    }
+    console.log(originRoom);
+    console.log(commonBorders);
+
+  } else if (direction === SOUTH) {
+    for (let i = 0; i < originRoom.width; i++) {
+      if (newMap[originRoom.row + originRoom.height + 1][originRoom.col + i] === TILE_ROOM) {
+        commonBorders.push({row: originRoom.row + originRoom.height, col: originRoom.col + i});
+      }
+    }
+
+  } else if (direction === WEST) {
+      for (let i = 0; i < originRoom.height; i++) {
+        if (newMap[originRoom.row + i][originRoom.col - 2] === TILE_ROOM) {
+          commonBorders.push({row: originRoom.row + i, col: originRoom.col - 1});
+        }
+      }
+    }
+
+
+
+  // select random location along common border to place door
+  const randomLocation = commonBorders[Math.floor(Math.random() * commonBorders.length)];
+  if (direction === EAST) {
+    console.log('randomLocation ', randomLocation);
+  }
+  if (isDoorLocked) {
+    newMap[randomLocation.row][randomLocation.col] = TILE_LOCKED_DOOR;
+  } else {
+    newMap[randomLocation.row][randomLocation.col] = TILE_DOOR;
+  }
+
+
+return map;
+
+}
 
 /* Algorithm
 

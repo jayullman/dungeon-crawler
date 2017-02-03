@@ -33,6 +33,11 @@ const testMap = [
 class App extends Component {
   constructor() {
     super();
+
+    do {
+    this.testMap = generateRooms();
+  } while (this.testMap.length === 0);
+
     this.state = {
       originalMap: testMap,
       currentMap: testMap,
@@ -50,9 +55,7 @@ class App extends Component {
 
     // NOTE: Test map, remove
     // TEST MAP
-    do {
-    this.testMap = generateRooms();
-  } while (this.testMap.length === 0);
+
   }
 
 listener = (event) => {

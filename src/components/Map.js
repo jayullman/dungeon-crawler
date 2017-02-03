@@ -29,15 +29,14 @@ export default function Map(props) {
         <div
           style={tile === 1 ? {backgroundColor: '#888'} : null}
           key={i + ', ' + j}
+          id={i + ', '+ j}
           className="tile">{tile}</div>
       );
     }
     newMap.push(<br key={i + ', ' + j + ' br'} />);
   }
-  console.log(newMap);
   return (
     <div className="map-container">
-
       {newMap}
     </div>
   );
