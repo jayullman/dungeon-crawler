@@ -34,6 +34,7 @@ export default function Map(props) {
     }
     newMap.push(<br key={i + ', ' + j + ' br'} />);
   }
+  console.log(newMap);
   return (
     <div className="map-container">
 

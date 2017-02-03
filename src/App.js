@@ -50,7 +50,9 @@ class App extends Component {
 
     // NOTE: Test map, remove
     // TEST MAP
+    do {
     this.testMap = generateRooms();
+  } while (this.testMap.length === 0);
   }
 
 listener = (event) => {
@@ -73,7 +75,6 @@ listener = (event) => {
 
       case RIGHT_KEY:
         nextPosition = helpers.getRightPosition(this.state.heroPosition, this.state.currentMap);
-
         break;
 
       case DOWN_KEY:
