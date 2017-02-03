@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 
 export default function Map(props) {
   const mapArray = props.map;
-  console.log(props);
 
   // rows will be an array of <div> elements
   // let rows = [];
@@ -27,6 +26,7 @@ export default function Map(props) {
       let tile = mapArray[i][j];
       newMap.push(
         <div
+          // TODO: remove hard coding
           style={tile === 1 ? {backgroundColor: '#888'} : null}
           key={i + ', ' + j}
           id={i + ', '+ j}
@@ -37,6 +37,7 @@ export default function Map(props) {
   }
   return (
     <div className="map-container">
+      {/* {mapArray.length === 0 ? <p>Loading...</p> : {newMap}} */}
       {newMap}
     </div>
   );

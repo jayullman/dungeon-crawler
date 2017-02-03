@@ -7,10 +7,16 @@ import * as helpers from './helpers';
 
 import generateRooms from './generateRooms';
 
-const UP_KEY = 38;
-const RIGHT_KEY = 39;
-const DOWN_KEY = 40;
-const LEFT_KEY = 37;
+import {
+  UP_KEY,
+  RIGHT_KEY,
+  DOWN_KEY,
+  LEFT_KEY,
+  TILE_ROOM,
+  TILE_HERO,
+  TILE_MONSTER,
+  TILE_BOSS
+} from './constant-values';
 
 
 const testMap = [
@@ -34,18 +40,12 @@ class App extends Component {
   constructor() {
     super();
 
-    do {
-    this.testMap = generateRooms();
-  } while (this.testMap.length === 0);
+
 
     this.state = {
-      originalMap: testMap,
-      currentMap: testMap,
-      heroPosition: {
-        row: 0,
-        col: 0
-      },
-      tileUnderHero: 0,
+      map: [],
+      heroPosition: {},
+      tileUnderHero: TILE_ROOM,
       // monsters property will hold an array of monster objects which
       // will describe their type, health, and map location
       monsters: []
@@ -58,7 +58,7 @@ class App extends Component {
 
   }
 
-listener = (event) => {
+handleHeroMove = (event) => {
 
     // ignore non-valid key inputs
     if (event.keyCode !== UP_KEY
@@ -67,25 +67,32 @@ listener = (event) => {
       &&  event.keyCode !== LEFT_KEY) {
           return;
         }
-    let newPosition;
+    let currentHeroPosition = this.state.heroPosition;
     let nextPosition;
-    let newMapArray = [];
+    let newMapArray = [...this.state.map];
     switch (event.keyCode) {
 
       case UP_KEY:
-        nextPosition = helpers.getUpPosition(this.state.heroPosition, this.state.currentMap);
+        event.preventDefault();
+
+        nextPosition = helpers.getUpPosition(currentHeroPosition);
         break;
 
       case RIGHT_KEY:
-        nextPosition = helpers.getRightPosition(this.state.heroPosition, this.state.currentMap);
+        event.preventDefault();
+
+        nextPosition = helpers.getRightPosition(currentHeroPosition);
         break;
 
       case DOWN_KEY:
-        nextPosition = helpers.getDownPosition(this.state.heroPosition, this.state.currentMap);
+        event.preventDefault();
+
+        nextPosition = helpers.getDownPosition(currentHeroPosition);
         break;
 
       case LEFT_KEY:
-        nextPosition = helpers.getLeftPosition(this.state.heroPosition, this.state.currentMap);
+        event.preventDefault();
+        nextPosition = helpers.getLeftPosition(currentHeroPosition);
         break;
 
       default:
@@ -93,53 +100,86 @@ listener = (event) => {
 
     }
 
-    if (helpers.isSpaceValid(nextPosition, this.state.currentMap)) {
-      newPosition = nextPosition;
+    if (helpers.isMoveValid(nextPosition, this.state.map)) {
+
+      // future tile under hero
+      const oldTile = newMapArray[nextPosition.row][nextPosition.col];
+      newMapArray[currentHeroPosition.row][currentHeroPosition.col] = this.state.tileUnderHero;
+      newMapArray[nextPosition.row][nextPosition.col] = TILE_HERO;
+      // newMapArray = helpers.moveHero(this.state.map, currentHeroPosition, nextPosition, this.state.tileUnderHero);
+      this.setState({
+        map: newMapArray,
+        heroPosition: nextPosition,
+        tileUnderHero: oldTile
+      });
+
+
     } else {
-      newPosition = this.state.heroPosition
+      // TODO: add obstacle handling here
     }
-
-    if (newPosition.row !== this.state.heroPosition.row
-      || newPosition.col !== this.state.heroPosition.col) {
-
-        newMapArray = helpers.moveHero(this.state.currentMap, this.state.heroPosition, newPosition, this.state.tileUnderHero);
-        this.setState({
-          currentMap: newMapArray,
-          heroPosition: newPosition
-        });
-      }
 
   }
 
-
-
-
   componentDidMount() {
-    window.addEventListener("keydown", this.listener);
+    window.addEventListener("keydown", this.handleHeroMove);
+
+
+    // TODO: move map building code to map component so I can render a loading screen
 
     // place monsters and hero characters
-    // let newMap = helpers.placeCharacters(this.state.currentMap);
-    // this.setState({currentMap: newMap})
-    const heroPosition = helpers.placeHero(this.state.currentMap);
+    // let newMap = helpers.placeCharacters(this.state.map);
+    // this.setState({map: newMap})
+    let initialMap = [];
+    do {
+    initialMap = generateRooms();
+  } while (initialMap.length === 0);
 
-    let newMap = this.state.currentMap;
-    newMap[heroPosition.row][heroPosition.col] = 2;
+
+    const allValidCharacterPositions = helpers.findAllValidCharacterSpaces(initialMap);
+    console.log(allValidCharacterPositions);
+
+    // helper function to select random index from array
+    function selectRandomIndex(arr) {
+      const index = Math.floor(Math.random() * arr.length);
+      return index;
+    }
+    let randomIndex;
+    // select random index from allValidCharacterPositions array
+    // splice off the location at that index and store in heroIndex
+    randomIndex = selectRandomIndex(allValidCharacterPositions);
+    let heroPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
+
+
+    // TODO: remove hard coding
+    initialMap[heroPosition.row][heroPosition.col] = TILE_HERO;
+
+    //initialMap[50][50] = '9';
 
     // number of monsters on the board
-    const monsterNumber = 3
-    let monstersArray = [];
-
+    const monsterNumber = 5; // TODO: remove hard coding
     // create initial array of monsters
-    monstersArray = helpers.createMonsters(monsterNumber, newMap);
-    // place monsters on map
-    newMap = helpers.placeMonsters(monstersArray, newMap);
+    const monstersArray = helpers.createMonsters(monsterNumber);
+
+    // place all monsters on board
+    for (let i = 0; i < monstersArray.length; i++) {
+      randomIndex = selectRandomIndex(allValidCharacterPositions);
+      let monsterPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
+      initialMap[monsterPosition.row][monsterPosition.col] = TILE_MONSTER;
+    }
+
+    // place monster on board
+    const allValidBossPositions = helpers.findAllValidBossSpaces(initialMap);
+    randomIndex = selectRandomIndex(allValidBossPositions);
+    let bossPosition = allValidBossPositions.splice(randomIndex, 1)[0];
+    initialMap[bossPosition.row][bossPosition.col] = TILE_BOSS;
+
+
 
     this.setState({
-      heroPosition,
-      currentMap: newMap,
+      map: initialMap,
+      heroPosition: heroPosition,
       monsters: monstersArray
     });
-
 
 
 
@@ -157,7 +197,10 @@ listener = (event) => {
           <h2>Dungeon Crawler</h2>
         </div>
         {/* NOTE: Test map, remove */}
-        <Map map={this.testMap} />
+        {this.state.map.length > 0
+          ? <Map map={this.state.map} />
+          : <p>loading</p>
+        }
 
       </div>
     );

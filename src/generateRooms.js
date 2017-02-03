@@ -3,21 +3,21 @@
 
 import * as helpers from './helpers';
 
+import {
+  NORTH,
+  SOUTH,
+  EAST,
+  WEST,
+  TILE_BOSS_ROOM,
+  TILE_ROOM,
+  TILE_HALL,
+  TILE_WALL,
+  TILE_DOOR,
+  TILE_LOCKED_DOOR,
+  DIRECTIONS
+} from './constant-values';
+
 var roomNumber = 2;
-
-const NORTH = 'NORTH';
-const SOUTH = 'SOUTH';
-const EAST = 'EAST';
-const WEST = 'WEST';
-
-const TILE_BOSS_ROOM = 0;
-const TILE_ROOM = 2;
-const TILE_HALL = 3;
-const TILE_WALL = 1;
-const TILE_DOOR = 4;
-const TILE_LOCKED_DOOR = 5;
-
-const DIRECTIONS = [NORTH, SOUTH, EAST, WEST];
 
 const roomWidth = 10;
 const roomHeight = 10;
