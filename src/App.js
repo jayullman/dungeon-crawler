@@ -7,6 +7,9 @@ import * as helpers from './helpers';
 
 import generateRooms from './generateRooms';
 
+import EquipmentStats from './components/EquipmentStats';
+import HealthXP from './components/HealthXP';
+
 import {
   UP_KEY,
   RIGHT_KEY,
@@ -49,9 +52,13 @@ class App extends Component {
         health: 20,
         maxHealth: 20,
         strength: 5,
+        defense: 0,
+        hasKey: false,
         XP: 0,
         nextXPLevel: 100,
-        torchValue: 12
+        torchValue: 12,
+        weapon: 'Fists',
+        armor: 'Dirty Rags'
       },
       tileUnderHero: TILE_ROOM,
       // monsters property will hold an array of monster objects which
@@ -64,7 +71,6 @@ handleHeroMove = (event) => {
   // removes the tile at the given position and replaces with
   // tile value given
   function removeTileFromBoard(position, tileValue) {
-    console.log(this);
     let newMapArray = [...this.state.map];
     newMapArray[position.row][position.col] = tileValue;
     this.setState({map: newMapArray});
@@ -283,8 +289,6 @@ handleHeroMove = (event) => {
       monsters: monstersArray
     });
 
-
-
   }
 
   componentWillUnmount() {
@@ -303,6 +307,19 @@ handleHeroMove = (event) => {
           visibilityMap={this.state.isVisibleArray}
         />
 
+        <HealthXP
+          currentHealth={this.state.hero.health}
+          maxHealth={this.state.hero.maxHealth}
+          currentXP={this.state.hero.XP}
+          nextXP={this.state.hero.nextXPLevel}
+        />
+        <EquipmentStats
+          currentWeapon={this.state.hero.weapon}
+          currentArmor={this.state.hero.armor}
+          defense={this.state.hero.defense}
+          hasKey={this.state.hero.hasKey}
+          strength={this.state.hero.strength}
+        />
 
       </div>
     );
