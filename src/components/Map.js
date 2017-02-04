@@ -7,7 +7,8 @@ import {
   TILE_MONSTER,
   TILE_BOSS,
   TILE_KEY,
-  TILE_ITEM,
+  TILE_WEAPON,
+  TILE_ARMOR,
   TILE_HEALTH,
   TILE_HIDDEN,
   TILE_TORCH
@@ -47,10 +48,12 @@ export default function Map(props) {
         color = "pink";
       } else if (tile === TILE_KEY) {
         color = "yellow";
-      } else if (tile === TILE_ITEM) {
+      } else if (tile === TILE_WEAPON) {
         color = "purple";
       } else if (tile === TILE_HEALTH) {
         color = "green";
+      } else if (tile === TILE_ARMOR) {
+        color = "teal";
       } else if (tile === TILE_TORCH) {
         color = "orange";
       } else {

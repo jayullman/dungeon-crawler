@@ -12,7 +12,8 @@ import {
   TILE_MONSTER,
   TILE_BOSS,
   TILE_KEY,
-  TILE_ITEM,
+  TILE_WEAPON,
+  TILE_ARMOR,
   TILE_HEALTH,
   TILE_TORCH,
   MINIMUM_PLAYABLE_SPACE
@@ -67,20 +68,38 @@ export default function handleHeroMove(event) {
 
     }
     const tileValue = this.state.map[nextPosition.row][nextPosition.col];
-    if (helpers.isMoveValid(nextPosition, this.state.map)) {
-
+    if (helpers.isMoveValid(nextPosition, this.state.map, this.state.hero.hasKey)) {
+      // TODO: make random weapon and armor name generator
       // handle items that player can move through
       if (tileValue === TILE_HEALTH) {
         helpers.healHero.call(this);
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
       } else if (tileValue === TILE_TORCH) {
         // add to the the hero's torchValue
-        console.log('yo!');
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
         this.setState({
           hero: {...this.state.hero, torchValue: this.state.hero.torchValue + 2}
         });
+      } else if (tileValue === TILE_KEY) {
+        removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+        this.setState({
+          hero: {...this.state.hero, hasKey: true}
+        });
+      } else if (tileValue === TILE_WEAPON) {
+        removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+        this.setState({
+          hero: {...this.state.hero, strength: this.state.hero.strength + 1,
+            weapon: 'TODO'}
+        });
+      } else if (tileValue === TILE_ARMOR) {
+        removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+        this.setState({
+          hero: {...this.state.hero, defense: this.state.hero.defense + 1,
+            armor: 'TODO'},
+
+        });
       }
+      console.log(this.state.hero);
       // future tile under hero
       const oldTile = newMapArray[nextPosition.row][nextPosition.col];
       newMapArray[currentHeroPosition.row][currentHeroPosition.col] = this.state.tileUnderHero;
@@ -124,6 +143,12 @@ export default function handleHeroMove(event) {
         } else if (this.state.monsters[monsterIndex].health < 1) {
           // destroy monster, remove from board, array, and give player experience
           helpers.killMonster.call(this, monsterIndex);
+          // update viewport after monster dies, used to avoid having to move
+          // before viewport is updated
+          let newViewPort = helpers.createViewPort(this.state.heroPosition, newMapArray, this.state.visibilityArray);
+          this.setState({viewPort: newViewPort})
+
+
           // NOTE: mosters are not disappearing until after hero moves
           // has to do with viewport not updating
         }

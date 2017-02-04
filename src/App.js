@@ -21,8 +21,9 @@ import {
   TILE_MONSTER,
   TILE_BOSS,
   TILE_KEY,
-  TILE_ITEM,
+  TILE_WEAPON,
   TILE_HEALTH,
+  TILE_ARMOR,
   TILE_TORCH,
   MINIMUM_PLAYABLE_SPACE
 } from './constant-values';
@@ -87,9 +88,7 @@ class App extends Component {
 
     if (initialMap) {
       var allValidCharacterPositions = helpers.findAllValidCharacterSpaces(initialMap);
-      console.log('length', allValidCharacterPositions.length );
     }
-    console.log('ppp');
     // keep generating random dungeon until there is a playable map of considerable size
   } while (initialMap.length === 0 || allValidCharacterPositions.length < MINIMUM_PLAYABLE_SPACE);
 
@@ -138,10 +137,21 @@ class App extends Component {
     let keyPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
     initialMap[keyPosition.row][keyPosition.col] = TILE_KEY;
 
-    // place equipment items on board
-    randomIndex = selectRandomIndex(allValidCharacterPositions);
-    let itemPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
-    initialMap[itemPosition.row][itemPosition.col] = TILE_ITEM;
+    // place weapon items on board
+    let numWeaponItems = 5; // TODO: remove hard coding
+    for (let i = 0; i < numWeaponItems; i++) {
+      randomIndex = selectRandomIndex(allValidCharacterPositions);
+      let weaponPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
+      initialMap[weaponPosition.row][weaponPosition.col] = TILE_WEAPON;
+    }
+
+    // place armor items on board
+    let numArmorItems = 5; // TODO: remove hard coding
+    for (let i = 0; i < numArmorItems; i++) {
+      randomIndex = selectRandomIndex(allValidCharacterPositions);
+      let armorPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
+      initialMap[armorPosition.row][armorPosition.col] = TILE_ARMOR;
+    }
 
     // place torches on board
     let numTorchItems = 10; // TODO: remove hard coding

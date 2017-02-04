@@ -5,7 +5,9 @@ import {
   TILE_BOSS_ROOM,
   TILE_KEY,
   TILE_HEALTH,
-  TILE_ITEM,
+  TILE_WEAPON,
+  TILE_ARMOR,
+  TILE_LOCKED_DOOR,
   HEAL_VALUE,
   VIEWPORT_HEIGHT,
   VIEWPORT_WIDTH,
@@ -130,7 +132,7 @@ export function getLeftPosition(currentPosition) {
   return newPosition;
 }
 
-export function isMoveValid(position, map) {
+export function isMoveValid(position, map, hasKey) {
   let nextPosition = map[position.row][position.col];
 
   if (nextPosition === TILE_ROOM
@@ -138,7 +140,9 @@ export function isMoveValid(position, map) {
     || nextPosition === TILE_KEY
     || nextPosition === TILE_HEALTH
     || nextPosition === TILE_TORCH
-    || nextPosition === TILE_ITEM) {
+    || nextPosition === TILE_WEAPON
+    || nextPosition === TILE_ARMOR
+    || (nextPosition === TILE_LOCKED_DOOR && hasKey)) {
     return true;
   } else {
     return false;
@@ -243,8 +247,13 @@ export function damageMonster(monsterIndex) {
 }
 
 export function damageHero(monsterIndex) {
-  const damageValue = Math.floor(Math.random()
-    * this.state.monsters[monsterIndex].strength) + 1;
+  let damageValue = Math.floor(Math.random()
+    * this.state.monsters[monsterIndex].strength) + 1
+    - this.state.hero.defense;
+
+  if (damageValue < 0) {
+    damageValue = 0;
+  }
 
   this.setState({
     hero: {...this.state.hero, health: this.state.hero.health - damageValue}
@@ -271,13 +280,12 @@ export function killMonster(monsterIndex) {
     = TILE_ROOM;
 
   newMonstersArray.splice(monsterIndex, 1);
-
-
   this.setState({
     map: newMap,
     monsters: newMonstersArray
   });
 
+  return newMap;
 }
 
 export function healHero() {
