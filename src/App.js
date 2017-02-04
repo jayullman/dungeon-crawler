@@ -18,7 +18,8 @@ import {
   TILE_BOSS,
   TILE_KEY,
   TILE_ITEM,
-  TILE_HEALTH
+  TILE_HEALTH,
+  MINIMUM_PLAYABLE_SPACE
 } from './constant-values';
 
 
@@ -26,9 +27,21 @@ class App extends Component {
   constructor() {
     super();
 
+    /* State Properties
+     * map: complete map information
+     * viewPort: what the player sees, a scrolling subset of map
+     * isVisibleArray: holds false and true values mapping to whether
+     *   the player has discovered the location yet
+     * hero: player properties
+     * tileUnderHero: temp value making it easier to swap tiles when the
+     *   hero moves to the next tile
+     * monsters: array holding all of the level's monsters
+    */
+
     this.state = {
       map: [],
       viewPort: [],
+      visibilityArray: [],
       heroPosition: {},
       hero: {
         health: 20,
@@ -45,6 +58,14 @@ class App extends Component {
   }
 
 handleHeroMove = (event) => {
+  // removes the tile at the given position and replaces with
+  // tile value given
+  function removeTileFromBoard(position, tileValue) {
+    console.log(this);
+    let newMapArray = [...this.state.map];
+    newMapArray[position.row][position.col] = tileValue;
+    this.setState({map: newMapArray});
+  }
 
     // ignore non-valid key inputs
     if (event.keyCode !== UP_KEY
@@ -85,27 +106,39 @@ handleHeroMove = (event) => {
         break;
 
     }
+    const tileValue = this.state.map[nextPosition.row][nextPosition.col];
 
     if (helpers.isMoveValid(nextPosition, this.state.map)) {
+
+      // handle items that player can move through
+      if (tileValue === TILE_HEALTH) {
+        helpers.healHero.call(this);
+        removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+      }
 
       // future tile under hero
       const oldTile = newMapArray[nextPosition.row][nextPosition.col];
       newMapArray[currentHeroPosition.row][currentHeroPosition.col] = this.state.tileUnderHero;
       newMapArray[nextPosition.row][nextPosition.col] = TILE_HERO;
 
-      const viewPort = helpers.createViewPort(nextPosition, newMapArray);
+
+
+      let visibilityArray = helpers.removeHiddenMap(nextPosition, [...this.state.visibilityArray]);
+
+      const viewPort = helpers.createViewPort(nextPosition, newMapArray, visibilityArray);
       // newMapArray = helpers.moveHero(this.state.map, currentHeroPosition, nextPosition, this.state.tileUnderHero);
       this.setState({
         map: newMapArray,
         viewPort: viewPort,
+        visibilityArray: visibilityArray,
         heroPosition: nextPosition,
         tileUnderHero: oldTile
       });
 
 
     } else {
-      // Obstacle handling here:
-      if (this.state.map[nextPosition.row][nextPosition.col] === TILE_MONSTER) {
+      //  handle tiles that player cannot move through
+      if (tileValue === TILE_MONSTER) {
         let monsterIndex = helpers.selectMonsterFromPosition.call(this, {
           row: nextPosition.row,
           col: nextPosition.col
@@ -125,7 +158,8 @@ handleHeroMove = (event) => {
         } else if (this.state.monsters[monsterIndex].health < 1) {
           // destroy monster, remove from board, array, and give player experience
           helpers.killMonster.call(this, monsterIndex);
-
+          // NOTE: mosters are not disappearing until after hero moves
+          // has to do with viewport not updating
         }
       }
       // TODO: add item cases here
@@ -146,10 +180,15 @@ handleHeroMove = (event) => {
     let initialMap = [];
     do {
     initialMap = generateRooms();
-  } while (initialMap.length === 0);
 
+    if (initialMap) {
+      var allValidCharacterPositions = helpers.findAllValidCharacterSpaces(initialMap);
+      console.log('length', allValidCharacterPositions.length );
+    }
+    console.log('ppp');
+    // keep generating random dungeon until there is a playable map of considerable size
+  } while (initialMap.length === 0 || allValidCharacterPositions.length < MINIMUM_PLAYABLE_SPACE);
 
-    const allValidCharacterPositions = helpers.findAllValidCharacterSpaces(initialMap);
 
     // helper function to select random index from array
     function selectRandomIndex(arr) {
@@ -208,14 +247,20 @@ handleHeroMove = (event) => {
       initialMap[healthPosition.row][healthPosition.col] = TILE_HEALTH;
     }
 
-    // create viewport
 
-      const viewPort = helpers.createViewPort(heroPosition, initialMap);
+    // initialize visibility map
+    let visibilityArray = helpers.initializeVisibilityMap();
+    visibilityArray = helpers.removeHiddenMap(heroPosition, visibilityArray);
+
+
+    // create viewport
+    const viewPort = helpers.createViewPort(heroPosition, initialMap, visibilityArray);
 
 
     this.setState({
       map: initialMap,
       viewPort: viewPort,
+      visibilityArray: visibilityArray,
       heroPosition: heroPosition,
       monsters: monstersArray
     });
@@ -235,11 +280,11 @@ handleHeroMove = (event) => {
 
           <h2>Dungeon Crawler</h2>
         </div>
-        {/* NOTE: Test map, remove */}
+        <Map
+          map={this.state.viewPort}
+          visibilityMap={this.state.isVisibleArray}
+        />
 
-        {/* <Map map={this.state.map} /> */}
-        <Map map={this.state.viewPort} />
-        }
 
       </div>
     );

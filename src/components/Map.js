@@ -8,7 +8,8 @@ import {
   TILE_BOSS,
   TILE_KEY,
   TILE_ITEM,
-  TILE_HEALTH
+  TILE_HEALTH,
+  TILE_HIDDEN
 } from '../constant-values';
 
 
@@ -33,7 +34,9 @@ export default function Map(props) {
   for (var i = 0; i < mapArray.length; i++) {
     for (var j = 0; j < mapArray[i].length; j++) {
       let tile = mapArray[i][j];
-      if (tile === TILE_WALL) {
+      if (tile === TILE_HIDDEN) {
+        color = '#333';
+      } else if (tile === TILE_WALL) {
         color = "#888";
       } else if (tile === TILE_HERO) {
         color = "blue";
@@ -61,6 +64,7 @@ export default function Map(props) {
     }
     newMap.push(<br key={i + ', ' + j + ' br'} />);
   }
+
   return (
     <div className="map-container">
       {/* {mapArray.length === 0 ? <p>Loading...</p> : {newMap}} */}

@@ -14,7 +14,9 @@ import {
   TILE_WALL,
   TILE_DOOR,
   TILE_LOCKED_DOOR,
-  DIRECTIONS
+  DIRECTIONS,
+  MAP_WIDTH,
+  MAP_HEIGHT
 } from './constant-values';
 
 var roomNumber = 2;
@@ -41,10 +43,11 @@ export default function generateRooms(map) {
   let tempMap;
   let newMap = [];
   let row = [];
-  // TEMP create blank array
-  for (var i = 0; i < 100; i++) {
+
+  // create map
+  for (var i = 0; i < MAP_WIDTH; i++) {
     row = [];
-    for (var j = 0; j < 100; j++) {
+    for (var j = 0; j < MAP_HEIGHT; j++) {
       row.push(1);
     }
     newMap.push(row);
@@ -138,7 +141,6 @@ function hollowRoom(roomPosition, tileType, map) {
 
     }
   }
-  // NOTE: for testing: remove roomNumber
 
   return editedMap;
 }

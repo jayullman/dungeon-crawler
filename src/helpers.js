@@ -2,8 +2,85 @@ import {
   TILE_HERO,
   TILE_ROOM,
   TILE_DOOR,
-  TILE_BOSS_ROOM
+  TILE_BOSS_ROOM,
+  TILE_KEY,
+  TILE_HEALTH,
+  TILE_ITEM,
+  HEAL_VALUE,
+  VIEWPORT_HEIGHT,
+  VIEWPORT_WIDTH,
+  MAP_WIDTH,
+  MAP_HEIGHT,
+  TILE_HIDDEN
 } from './constant-values';
+
+export function initializeVisibilityMap() {
+  let isVisibleArray = [];
+  let row = [];
+  for (var i = 0; i < MAP_WIDTH; i++) {
+    row = [];
+    for (var j = 0; j < MAP_HEIGHT; j++) {
+      row.push(false);
+    }
+    isVisibleArray.push(row);
+  }
+
+  return isVisibleArray;
+}
+
+export function removeHiddenMap(heroPosition, visibilityMap) {
+  let visibilityArray = [...visibilityMap];
+
+  const ROW_LIMIT = visibilityArray.length;
+  const COL_LIMIT = visibilityArray[0].length;
+
+  let visibilityBeginRow = heroPosition.row - 10;
+  let visibilityBeginCol = heroPosition.col - 10
+
+
+  if (visibilityBeginRow < 0) {
+    visibilityBeginRow = 0;
+
+  }
+  if (visibilityBeginCol < 0) {
+    visibilityBeginCol = 0;
+
+  }
+
+  let visibilityEndRow = visibilityBeginRow + 20;
+  let visibilityEndCol = visibilityBeginCol + 20;
+
+  if (visibilityEndRow > ROW_LIMIT) {
+    visibilityEndRow = ROW_LIMIT;
+    visibilityBeginRow = ROW_LIMIT - 20;
+
+  }
+  if (visibilityEndCol > COL_LIMIT) {
+    visibilityEndCol = COL_LIMIT;
+    visibilityBeginCol = COL_LIMIT - 20;
+  }
+
+  // TODO: figure out algorithm that creates spherical light
+  // const VISIBILITY_RADIUS = 5;
+  // let beginCols = heroPosition.col - VISIBILITY_RADIUS / 2;
+  // let numberOfCols = VISIBILITY_RADIUS;
+  // // create visibility bubble
+  // for (let i = heroPosition.row; i >= visibilityBeginRow; i--) {
+  //   for (let j = beginCols; j < VISIBILITY_RADIUS; j++) {
+  //     visibilityArray[i][j] = true;
+  //   }
+  //   beginCols - 2;
+  // }
+  //
+
+  for (var i = visibilityBeginRow; i < visibilityEndRow; i++) {
+    for (var j = visibilityBeginCol; j < visibilityEndCol; j++) {
+      visibilityArray[i][j] = true;
+    }
+  }
+
+  return visibilityArray
+}
 
 // NOTE: do I need this function anymore?
 export function moveHero(mapArray, currentPosition, newPosition, tileUnderHero) {
@@ -58,7 +135,10 @@ export function isMoveValid(position, map) {
   let nextPosition = map[position.row][position.col];
 
   if (nextPosition === TILE_ROOM
-    || nextPosition === TILE_DOOR) {
+    || nextPosition === TILE_DOOR
+    || nextPosition === TILE_KEY
+    || nextPosition === TILE_HEALTH
+    || nextPosition === TILE_ITEM) {
     return true;
   } else {
     return false;
@@ -200,15 +280,27 @@ export function killMonster(monsterIndex) {
 
 }
 
+export function healHero() {
+  const heroMaxHealth = this.state.hero.maxHealth;
+  const currentHealth = this.state.hero.health;
+  let newHealthValue = currentHealth + HEAL_VALUE;
+
+  if (newHealthValue > heroMaxHealth) {
+    newHealthValue = heroMaxHealth;
+  }
+
+  this.setState({
+    hero: {...this.state.hero, health: newHealthValue}
+  })
+}
+
 // creates a subsectin of the map
-export function createViewPort(heroPosition, fullMap) {
+export function createViewPort(heroPosition, fullMap, visibilityMap) {
   const ROW_LIMIT = fullMap.length;
   const COL_LIMIT = fullMap[0].length;
-  const viewPortHeight = 30;
-  const viewPortWidth = 30;
   let viewPort = [];
-  let viewPortBeginRow = heroPosition.row - (viewPortHeight / 2);
-  let viewPortBeginCol = heroPosition.col - (viewPortWidth / 2);
+  let viewPortBeginRow = heroPosition.row - (VIEWPORT_HEIGHT / 2);
+  let viewPortBeginCol = heroPosition.col - (VIEWPORT_WIDTH / 2);
 
 
   if (viewPortBeginRow < 0) {
@@ -220,30 +312,31 @@ export function createViewPort(heroPosition, fullMap) {
 
   }
 
-  let viewPortEndRow = viewPortBeginRow + viewPortHeight;
-  let viewPortEndCol = viewPortBeginCol + viewPortWidth;
+  let viewPortEndRow = viewPortBeginRow + VIEWPORT_HEIGHT;
+  let viewPortEndCol = viewPortBeginCol + VIEWPORT_WIDTH;
 
   if (viewPortEndRow > ROW_LIMIT) {
     viewPortEndRow = ROW_LIMIT;
-    viewPortBeginRow = ROW_LIMIT - viewPortWidth;
+    viewPortBeginRow = ROW_LIMIT - VIEWPORT_WIDTH;
 
   }
   if (viewPortEndCol > COL_LIMIT) {
     viewPortEndCol = COL_LIMIT;
-    viewPortBeginCol = COL_LIMIT - viewPortHeight;
+    viewPortBeginCol = COL_LIMIT - VIEWPORT_HEIGHT;
   }
 
-  console.log(viewPortBeginRow);
-  console.log(viewPortEndRow);
-
+console.log(visibilityMap);
   let row;
   for (var i = viewPortBeginRow; i < viewPortEndRow; i++) {
     row = [];
     for (var j = viewPortBeginCol; j < viewPortEndCol; j++) {
-      row.push(fullMap[i][j]);
+      if (visibilityMap[i][j] === true) {
+        row.push(fullMap[i][j]);
+      } else {
+        row.push(TILE_HIDDEN);
+      }
     }
     viewPort.push(row);
   }
-  console.log(viewPort);
   return viewPort;
 }
