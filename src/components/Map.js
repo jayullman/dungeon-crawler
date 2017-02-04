@@ -14,7 +14,6 @@ import {
 
 export default function Map(props) {
   const mapArray = props.map;
-
   // rows will be an array of <div> elements
   // let rows = [];
   // let key = 2;

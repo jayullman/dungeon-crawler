@@ -103,7 +103,6 @@ function Monster() {
 }
 
 export function getRandomMapLocation(map) {
-  console.log(map[0].length);
   const ROW_LIMIT = map.length;
   const COL_LIMIT = map[0].length;
   let randomRow, randomCol, position;
@@ -199,4 +198,52 @@ export function killMonster(monsterIndex) {
     monsters: newMonstersArray
   });
 
+}
+
+// creates a subsectin of the map
+export function createViewPort(heroPosition, fullMap) {
+  const ROW_LIMIT = fullMap.length;
+  const COL_LIMIT = fullMap[0].length;
+  const viewPortHeight = 30;
+  const viewPortWidth = 30;
+  let viewPort = [];
+  let viewPortBeginRow = heroPosition.row - (viewPortHeight / 2);
+  let viewPortBeginCol = heroPosition.col - (viewPortWidth / 2);
+
+
+  if (viewPortBeginRow < 0) {
+    viewPortBeginRow = 0;
+
+  }
+  if (viewPortBeginCol < 0) {
+    viewPortBeginCol = 0;
+
+  }
+
+  let viewPortEndRow = viewPortBeginRow + viewPortHeight;
+  let viewPortEndCol = viewPortBeginCol + viewPortWidth;
+
+  if (viewPortEndRow > ROW_LIMIT) {
+    viewPortEndRow = ROW_LIMIT;
+    viewPortBeginRow = ROW_LIMIT - viewPortWidth;
+
+  }
+  if (viewPortEndCol > COL_LIMIT) {
+    viewPortEndCol = COL_LIMIT;
+    viewPortBeginCol = COL_LIMIT - viewPortHeight;
+  }
+
+  console.log(viewPortBeginRow);
+  console.log(viewPortEndRow);
+
+  let row;
+  for (var i = viewPortBeginRow; i < viewPortEndRow; i++) {
+    row = [];
+    for (var j = viewPortBeginCol; j < viewPortEndCol; j++) {
+      row.push(fullMap[i][j]);
+    }
+    viewPort.push(row);
+  }
+  console.log(viewPort);
+  return viewPort;
 }

@@ -28,6 +28,7 @@ class App extends Component {
 
     this.state = {
       map: [],
+      viewPort: [],
       heroPosition: {},
       hero: {
         health: 20,
@@ -91,9 +92,12 @@ handleHeroMove = (event) => {
       const oldTile = newMapArray[nextPosition.row][nextPosition.col];
       newMapArray[currentHeroPosition.row][currentHeroPosition.col] = this.state.tileUnderHero;
       newMapArray[nextPosition.row][nextPosition.col] = TILE_HERO;
+
+      const viewPort = helpers.createViewPort(nextPosition, newMapArray);
       // newMapArray = helpers.moveHero(this.state.map, currentHeroPosition, nextPosition, this.state.tileUnderHero);
       this.setState({
         map: newMapArray,
+        viewPort: viewPort,
         heroPosition: nextPosition,
         tileUnderHero: oldTile
       });
@@ -204,10 +208,14 @@ handleHeroMove = (event) => {
       initialMap[healthPosition.row][healthPosition.col] = TILE_HEALTH;
     }
 
+    // create viewport
+
+      const viewPort = helpers.createViewPort(heroPosition, initialMap);
 
 
     this.setState({
       map: initialMap,
+      viewPort: viewPort,
       heroPosition: heroPosition,
       monsters: monstersArray
     });
@@ -228,9 +236,9 @@ handleHeroMove = (event) => {
           <h2>Dungeon Crawler</h2>
         </div>
         {/* NOTE: Test map, remove */}
-        {this.state.map.length > 0
-          ? <Map map={this.state.map} />
-          : <p>loading</p>
+
+        {/* <Map map={this.state.map} /> */}
+        <Map map={this.state.viewPort} />
         }
 
       </div>
