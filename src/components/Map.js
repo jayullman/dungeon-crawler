@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 
-
+import {
+  TILE_WALL,
+  TILE_ROOM,
+  TILE_HERO,
+  TILE_MONSTER,
+  TILE_BOSS,
+  TILE_KEY,
+  TILE_ITEM,
+  TILE_HEALTH
+} from '../constant-values';
 
 
 export default function Map(props) {
@@ -25,19 +34,19 @@ export default function Map(props) {
   for (var i = 0; i < mapArray.length; i++) {
     for (var j = 0; j < mapArray[i].length; j++) {
       let tile = mapArray[i][j];
-      if (tile === 1) {
+      if (tile === TILE_WALL) {
         color = "#888";
-      } else if (tile === 9) {
+      } else if (tile === TILE_HERO) {
         color = "blue";
-      } else if (tile === 8) {
+      } else if (tile === TILE_BOSS) {
         color = "red";
-      } else if (tile === 7) {
+      } else if (tile === TILE_MONSTER) {
         color = "pink";
-      } else if (tile === 11) {
+      } else if (tile === TILE_KEY) {
         color = "yellow";
-      } else if (tile === 10) {
+      } else if (tile === TILE_ITEM) {
         color = "purple";
-      } else if (tile === 6) {
+      } else if (tile === TILE_HEALTH) {
         color = "green";
       } else {
         color = null;
