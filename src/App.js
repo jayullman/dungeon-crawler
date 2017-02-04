@@ -15,47 +15,32 @@ import {
   TILE_ROOM,
   TILE_HERO,
   TILE_MONSTER,
-  TILE_BOSS
+  TILE_BOSS,
+  TILE_KEY,
+  TILE_ITEM,
+  TILE_HEALTH
 } from './constant-values';
-
-
-const testMap = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-]
-
 
 
 class App extends Component {
   constructor() {
     super();
 
-
-
     this.state = {
       map: [],
       heroPosition: {},
+      hero: {
+        health: 20,
+        maxHealth: 20,
+        strength: 5,
+        XP: 0,
+        nextXPLevel: 100
+      },
       tileUnderHero: TILE_ROOM,
       // monsters property will hold an array of monster objects which
       // will describe their type, health, and map location
       monsters: []
     }
-    // TODO: set up initial boss positioning
-    //bossPosition: {}
-
-    // NOTE: Test map, remove
-    // TEST MAP
-
   }
 
 handleHeroMove = (event) => {
@@ -115,7 +100,32 @@ handleHeroMove = (event) => {
 
 
     } else {
-      // TODO: add obstacle handling here
+      // Obstacle handling here:
+      if (this.state.map[nextPosition.row][nextPosition.col] === TILE_MONSTER) {
+        let monsterIndex = helpers.selectMonsterFromPosition.call(this, {
+          row: nextPosition.row,
+          col: nextPosition.col
+        });
+        helpers.damageHero.call(this, monsterIndex);
+        helpers.damageMonster.call(this, monsterIndex);
+        console.log('monster health: ', this.state.monsters[monsterIndex].health);
+        console.log('hero health: ', this.state.hero.health);
+        console.log(this.state.monsters.length);
+
+
+        // check if monster or hero have died
+        if (this.state.hero.health < 1) {
+          console.log('hero died! game over');
+          // TODO: create game over logic
+
+        } else if (this.state.monsters[monsterIndex].health < 1) {
+          // destroy monster, remove from board, array, and give player experience
+          helpers.killMonster.call(this, monsterIndex);
+
+        }
+      }
+      // TODO: add item cases here
+
     }
 
   }
@@ -136,7 +146,6 @@ handleHeroMove = (event) => {
 
 
     const allValidCharacterPositions = helpers.findAllValidCharacterSpaces(initialMap);
-    console.log(allValidCharacterPositions);
 
     // helper function to select random index from array
     function selectRandomIndex(arr) {
@@ -150,28 +159,50 @@ handleHeroMove = (event) => {
     let heroPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
 
 
-    // TODO: remove hard coding
     initialMap[heroPosition.row][heroPosition.col] = TILE_HERO;
 
-    //initialMap[50][50] = '9';
 
     // number of monsters on the board
-    const monsterNumber = 5; // TODO: remove hard coding
+    const monsterNumber = 20; // TODO: remove hard coding
     // create initial array of monsters
     const monstersArray = helpers.createMonsters(monsterNumber);
 
     // place all monsters on board
+    // Monsters are kept in an array in state. They are independent from the markers
+    // on the map. In order to interact, the correct monster must be crossed referenced
+    // based on its map location
     for (let i = 0; i < monstersArray.length; i++) {
       randomIndex = selectRandomIndex(allValidCharacterPositions);
       let monsterPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
       initialMap[monsterPosition.row][monsterPosition.col] = TILE_MONSTER;
+      monstersArray[i].row = monsterPosition.row;
+      monstersArray[i].col = monsterPosition.col;
     }
 
-    // place monster on board
+    // place boss on board
     const allValidBossPositions = helpers.findAllValidBossSpaces(initialMap);
     randomIndex = selectRandomIndex(allValidBossPositions);
     let bossPosition = allValidBossPositions.splice(randomIndex, 1)[0];
     initialMap[bossPosition.row][bossPosition.col] = TILE_BOSS;
+
+
+    // place key on board
+    randomIndex = selectRandomIndex(allValidCharacterPositions);
+    let keyPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
+    initialMap[keyPosition.row][keyPosition.col] = TILE_KEY;
+
+    // place equipment items on board
+    randomIndex = selectRandomIndex(allValidCharacterPositions);
+    let itemPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
+    initialMap[itemPosition.row][itemPosition.col] = TILE_ITEM;
+
+    // place health items on board
+    let numHealthItems = 15; // TODO: remove hard coding
+    for (let i = 0; i < numHealthItems; i++) {
+      randomIndex = selectRandomIndex(allValidCharacterPositions);
+      let healthPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
+      initialMap[healthPosition.row][healthPosition.col] = TILE_HEALTH;
+    }
 
 
 

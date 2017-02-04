@@ -18,6 +18,9 @@ export const TILE_LOCKED_DOOR = 5;
 export const TILE_HERO = 9;
 export const TILE_MONSTER = 7;
 export const TILE_BOSS = 8;
+export const TILE_KEY = 11;
+export const TILE_ITEM = 10;
+export const TILE_HEALTH = 6;
 
 
 export const DIRECTIONS = [NORTH, SOUTH, EAST, WEST];

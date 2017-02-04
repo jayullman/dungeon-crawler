@@ -5,7 +5,6 @@ import {
   TILE_BOSS_ROOM
 } from './constant-values';
 
-
 // NOTE: do I need this function anymore?
 export function moveHero(mapArray, currentPosition, newPosition, tileUnderHero) {
   let newMapArray = [...mapArray];
@@ -100,6 +99,7 @@ function Monster() {
   // TODO: make health variable, possibly based on board
   this.health = 10;
   this.strength = 5;
+  this.level = 1;
 }
 
 export function getRandomMapLocation(map) {
@@ -144,6 +144,59 @@ export function findAllValidBossSpaces(map) {
     }
   }
 
-
   return validLocations;
+}
+
+export function damageMonster(monsterIndex) {
+  const damageValue = Math.floor(Math.random() * this.state.hero.strength) + 1;
+  const currentMonsterHealth = this.state.monsters[monsterIndex].health;
+  const prevMonsterState = this.state.monsters[monsterIndex];
+
+
+  const newMonsterState = {...prevMonsterState, health: currentMonsterHealth - damageValue};
+  const newMonstersArray = [...this.state.monsters];
+
+  newMonstersArray.splice(monsterIndex, 1, newMonsterState);
+
+  this.setState({
+    monsters: newMonstersArray
+  });
+}
+
+export function damageHero(monsterIndex) {
+  const damageValue = Math.floor(Math.random()
+    * this.state.monsters[monsterIndex].strength) + 1;
+
+  this.setState({
+    hero: {...this.state.hero, health: this.state.hero.health - damageValue}
+  })
+}
+
+export function selectMonsterFromPosition(position) {
+  const row = position.row;
+  const col = position.col;
+
+  const index = this.state.monsters.findIndex((monster) => {
+    return row === monster.row && col === monster.col;
+  });
+
+  return index;
+}
+
+// destroy monster, remove from board, array, and give player experience
+export function killMonster(monsterIndex) {
+  let newMonstersArray = [...this.state.monsters];
+  let newMap = [...this.state.map];
+
+  newMap[newMonstersArray[monsterIndex].row][newMonstersArray[monsterIndex].col]
+    = TILE_ROOM;
+
+  newMonstersArray.splice(monsterIndex, 1);
+
+
+  this.setState({
+    map: newMap,
+    monsters: newMonstersArray
+  });
+
 }

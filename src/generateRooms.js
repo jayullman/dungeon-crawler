@@ -269,8 +269,6 @@ function attachDoor(direction, originRoom, newRoom, map) {
         commonBorders.push({row: originRoom.row + i, col: originRoom.col + originRoom.width});
       }
     }
-    console.log(originRoom);
-    console.log(commonBorders);
 
   } else if (direction === SOUTH) {
     for (let i = 0; i < originRoom.width; i++) {
@@ -292,7 +290,6 @@ function attachDoor(direction, originRoom, newRoom, map) {
   // select random location along common border to place door
   const randomLocation = commonBorders[Math.floor(Math.random() * commonBorders.length)];
   if (direction === EAST) {
-    console.log('randomLocation ', randomLocation);
   }
   if (isDoorLocked) {
     newMap[randomLocation.row][randomLocation.col] = TILE_LOCKED_DOOR;
@@ -304,23 +301,3 @@ function attachDoor(direction, originRoom, newRoom, map) {
 return map;
 
 }
-
-/* Algorithm
-
-  Place Boss Room:
-    pick random location with getRandomMapLocation(newMap)
-
-    if tile === 1:
-      see if a 10x10 room fits
-    else:
-      pick another location
-
-
-
-
-
-
-
-
-
-*/
