@@ -19,6 +19,7 @@ import {
   TILE_KEY,
   TILE_ITEM,
   TILE_HEALTH,
+  TILE_TORCH,
   MINIMUM_PLAYABLE_SPACE
 } from './constant-values';
 
@@ -36,6 +37,7 @@ class App extends Component {
      * tileUnderHero: temp value making it easier to swap tiles when the
      *   hero moves to the next tile
      * monsters: array holding all of the level's monsters
+     * torchValue: area revealed around player, must be even
     */
 
     this.state = {
@@ -48,7 +50,8 @@ class App extends Component {
         maxHealth: 20,
         strength: 5,
         XP: 0,
-        nextXPLevel: 100
+        nextXPLevel: 100,
+        torchValue: 12
       },
       tileUnderHero: TILE_ROOM,
       // monsters property will hold an array of monster objects which
@@ -107,15 +110,21 @@ handleHeroMove = (event) => {
 
     }
     const tileValue = this.state.map[nextPosition.row][nextPosition.col];
-
+    console.log(tileValue);
     if (helpers.isMoveValid(nextPosition, this.state.map)) {
 
       // handle items that player can move through
       if (tileValue === TILE_HEALTH) {
         helpers.healHero.call(this);
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+      } else if (tileValue === TILE_TORCH) {
+        // add to the the hero's torchValue
+        console.log('yo!');
+        removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+        this.setState({
+          hero: {...this.state.hero, torchValue: this.state.hero.torchValue + 2}
+        });
       }
-
       // future tile under hero
       const oldTile = newMapArray[nextPosition.row][nextPosition.col];
       newMapArray[currentHeroPosition.row][currentHeroPosition.col] = this.state.tileUnderHero;
@@ -123,7 +132,8 @@ handleHeroMove = (event) => {
 
 
 
-      let visibilityArray = helpers.removeHiddenMap(nextPosition, [...this.state.visibilityArray]);
+      let visibilityArray = helpers.removeHiddenMap(nextPosition,
+          [...this.state.visibilityArray], this.state.hero.torchValue);
 
       const viewPort = helpers.createViewPort(nextPosition, newMapArray, visibilityArray);
       // newMapArray = helpers.moveHero(this.state.map, currentHeroPosition, nextPosition, this.state.tileUnderHero);
@@ -238,6 +248,14 @@ handleHeroMove = (event) => {
     randomIndex = selectRandomIndex(allValidCharacterPositions);
     let itemPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
     initialMap[itemPosition.row][itemPosition.col] = TILE_ITEM;
+
+    // place torches on board
+    let numTorchItems = 10; // TODO: remove hard coding
+    for (let i = 0; i < numTorchItems; i++) {
+      randomIndex = selectRandomIndex(allValidCharacterPositions);
+      let torchPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
+      initialMap[torchPosition.row][torchPosition.col] = TILE_TORCH;
+    }
 
     // place health items on board
     let numHealthItems = 15; // TODO: remove hard coding

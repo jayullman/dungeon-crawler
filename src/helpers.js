@@ -11,7 +11,8 @@ import {
   VIEWPORT_WIDTH,
   MAP_WIDTH,
   MAP_HEIGHT,
-  TILE_HIDDEN
+  TILE_HIDDEN,
+  TILE_TORCH
 } from './constant-values';
 
 export function initializeVisibilityMap() {
@@ -28,56 +29,54 @@ export function initializeVisibilityMap() {
   return isVisibleArray;
 }
 
-export function removeHiddenMap(heroPosition, visibilityMap) {
+// removes hidden spaces around player
+// torchValue is how much of the space is revealed to the player
+export function removeHiddenMap(heroPosition, visibilityMap, torchValue = 12) {
   let visibilityArray = [...visibilityMap];
+
+  // ensure torchValue is even
+  if (torchValue % 2 !== 0) {
+    torchValue++;
+  }
 
   const ROW_LIMIT = visibilityArray.length;
   const COL_LIMIT = visibilityArray[0].length;
 
-  let visibilityBeginRow = heroPosition.row - 10;
-  let visibilityBeginCol = heroPosition.col - 10
+  let row, col;
+  let bubbleWidth = 1;
 
 
-  if (visibilityBeginRow < 0) {
-    visibilityBeginRow = 0;
+  let colOffset = 0;
+  for (let i = 0; i < torchValue; i++) {
+    col = heroPosition.col + colOffset;
+    row = heroPosition.row - torchValue/2+1 + i;
+    for (let j = 0; j < bubbleWidth; j++) {
 
-  }
-  if (visibilityBeginCol < 0) {
-    visibilityBeginCol = 0;
+      // ensure stays within bounds of array
+      if (row < 0) {
+        row = 0;
+      } else if (row > ROW_LIMIT) {
+        row = ROW_LIMIT;
+      }
+      if (col < 0) {
+        col = 0;
+      } else if (col +j > COL_LIMIT) {
+        col = COL_LIMIT;
+      }
 
-  }
+      visibilityArray[row][col+j] = true;
 
-  let visibilityEndRow = visibilityBeginRow + 20;
-  let visibilityEndCol = visibilityBeginCol + 20;
 
-  if (visibilityEndRow > ROW_LIMIT) {
-    visibilityEndRow = ROW_LIMIT;
-    visibilityBeginRow = ROW_LIMIT - 20;
-
-  }
-  if (visibilityEndCol > COL_LIMIT) {
-    visibilityEndCol = COL_LIMIT;
-    visibilityBeginCol = COL_LIMIT - 20;
-  }
-
-  // TODO: figure out algorithm that creates spherical light
-  // const VISIBILITY_RADIUS = 5;
-  // let beginCols = heroPosition.col - VISIBILITY_RADIUS / 2;
-  // let numberOfCols = VISIBILITY_RADIUS;
-  // // create visibility bubble
-  // for (let i = heroPosition.row; i >= visibilityBeginRow; i--) {
-  //   for (let j = beginCols; j < VISIBILITY_RADIUS; j++) {
-  //     visibilityArray[i][j] = true;
-  //   }
-  //   beginCols - 2;
-  // }
-  //
-
-  for (var i = visibilityBeginRow; i < visibilityEndRow; i++) {
-    for (var j = visibilityBeginCol; j < visibilityEndCol; j++) {
-      visibilityArray[i][j] = true;
+    }
+    if (row < heroPosition.row) {
+      bubbleWidth += 2;
+      colOffset--;
+    } else if (row > heroPosition.row) {
+      bubbleWidth -= 2;
+      colOffset++;
     }
   }
+
 
   return visibilityArray
 }
@@ -138,6 +137,7 @@ export function isMoveValid(position, map) {
     || nextPosition === TILE_DOOR
     || nextPosition === TILE_KEY
     || nextPosition === TILE_HEALTH
+    || nextPosition === TILE_TORCH
     || nextPosition === TILE_ITEM) {
     return true;
   } else {
@@ -325,7 +325,6 @@ export function createViewPort(heroPosition, fullMap, visibilityMap) {
     viewPortBeginCol = COL_LIMIT - VIEWPORT_HEIGHT;
   }
 
-console.log(visibilityMap);
   let row;
   for (var i = viewPortBeginRow; i < viewPortEndRow; i++) {
     row = [];

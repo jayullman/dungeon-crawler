@@ -23,6 +23,7 @@ export const TILE_KEY = 11;
 export const TILE_ITEM = 10;
 export const TILE_HEALTH = 6;
 export const TILE_HIDDEN = 12;
+export const TILE_TORCH = 13;
 
 
 // value added to hero's health when healed

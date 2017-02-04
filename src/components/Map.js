@@ -9,7 +9,8 @@ import {
   TILE_KEY,
   TILE_ITEM,
   TILE_HEALTH,
-  TILE_HIDDEN
+  TILE_HIDDEN,
+  TILE_TORCH
 } from '../constant-values';
 
 
@@ -50,6 +51,8 @@ export default function Map(props) {
         color = "purple";
       } else if (tile === TILE_HEALTH) {
         color = "green";
+      } else if (tile === TILE_TORCH) {
+        color = "orange";
       } else {
         color = null;
       }
