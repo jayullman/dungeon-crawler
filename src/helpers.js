@@ -39,8 +39,8 @@ export function removeHiddenMap(heroPosition, visibilityMap, torchValue = 12) {
     torchValue++;
   }
 
-  const ROW_LIMIT = visibilityArray.length;
-  const COL_LIMIT = visibilityArray[0].length;
+  const ROW_LIMIT = visibilityArray.length - 1;
+  const COL_LIMIT = visibilityArray[0].length - 1;
 
   let row, col;
   let bubbleWidth = 1;
