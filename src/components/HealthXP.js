@@ -7,6 +7,7 @@ export default function(props) {
   const maxHealth = props.maxHealth;
   const currentXP = props.currentXP;
   const nextXP = props.nextXP;
+  const level = props.level;
 
   return (
     <div className="health-xp-box">
@@ -15,6 +16,7 @@ export default function(props) {
         max health: {maxHealth}
       </div>
       <div className="xp-bar">
+        Level: {level}
         XP: {currentXP}
         next level: {nextXP}
       </div>
