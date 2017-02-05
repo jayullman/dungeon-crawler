@@ -204,7 +204,8 @@ export default function handleHeroMove(event) {
         let newViewPort = helpers.createViewPort(this.state.heroPosition, newMapArray, this.state.visibilityArray);
         this.setState({viewPort: newViewPort});
         console.log('You won!');
-        // TODO: create game win logic
+        // TODO: test win condition
+        this.setState({playerWon: true});
       }
 
     }

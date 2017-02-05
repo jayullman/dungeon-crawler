@@ -26,6 +26,10 @@ export default function(props) {
           As you kill monsters, you will gain experience. If you get enough experience,
           you will level up, which will increase your max health, attack, and defense values.
         </p>
+        <p>
+          The dungeon is randomly generated through the use of a recursive algorithm, so if you don't
+          like this particular dungeon's layout, feel free to click the restart button :)
+        </p>
         <h5>Item Glossary</h5>
         <dl className="item-glossary">
           <dt>Torch</dt>
