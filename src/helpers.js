@@ -16,7 +16,8 @@ import {
   TILE_HIDDEN,
   TILE_TORCH,
   NOUNS,
-  ADVERBS
+  ADVERBS,
+  XP_FROM_MONSTER
 } from './constant-values';
 
 // pass in weaponNames or armorNames arrays
@@ -311,6 +312,35 @@ export function selectMonsterFromPosition(position) {
   return index;
 }
 
+export function levelUpHero() {
+  let currentStrength = this.state.hero.strength;
+  let currentDefense = this.state.hero.defense;
+  let currentMaxHealth = this.state.hero.maxHealth;
+  let currentNextLevelXP = this.state.hero.nextXPLevel;
+  let currentLevel = this.state.hero.level;
+
+  let newStrength = currentStrength + 2;
+  let newDefense = currentDefense + 2;
+  let newMaxHealth = currentMaxHealth + 15;
+  let newLevel = currentLevel + 1;
+
+  let newNextLevelXP = currentNextLevelXP + 50;
+
+  this.setState({
+    hero: {
+      ...this.state.hero,
+      strength: newStrength,
+      defense: newDefense,
+      maxHealth: newMaxHealth,
+      health: newMaxHealth,
+      nextXPLevel: newNextLevelXP,
+      XP: 0,
+      level: newLevel
+      }
+  });
+
+}
+
 // destroy monster, remove from board, array, and give player experience
 export function killMonster(monsterIndex) {
   let newMonstersArray = [...this.state.monsters];
@@ -319,10 +349,16 @@ export function killMonster(monsterIndex) {
   newMap[newMonstersArray[monsterIndex].row][newMonstersArray[monsterIndex].col]
     = TILE_ROOM;
 
+  // add xp to player
+  let newPlayerXP = this.state.hero.XP + XP_FROM_MONSTER;
+
+
+
   newMonstersArray.splice(monsterIndex, 1);
   this.setState({
     map: newMap,
-    monsters: newMonstersArray
+    monsters: newMonstersArray,
+    hero: {...this.state.hero, XP: newPlayerXP}
   });
 
   return newMap;

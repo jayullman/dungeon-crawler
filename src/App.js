@@ -25,7 +25,15 @@ import {
   TILE_HEALTH,
   TILE_ARMOR,
   TILE_TORCH,
-  MINIMUM_PLAYABLE_SPACE
+  STARTING_BOSS_STRENGTH,
+  STARTING_BOSS_HEALTH,
+  STARTING_BOSS_DEFENSE,
+  MINIMUM_PLAYABLE_SPACE,
+  STARTING_ARMOR_TILES,
+  STARTING_WEAPON_TILES,
+  STARTING_HEALTH_TILES,
+  STARTING_TORCH_TILES,
+  STARTING_MONSTER_TILES
 } from './constant-values';
 
 
@@ -70,9 +78,9 @@ class App extends Component {
       // will describe their type, health, and map location
       monsters: [],
       boss: {
-        strength: 10,
-        health: 40,
-        defense: 5
+        strength: STARTING_BOSS_STRENGTH,
+        health: STARTING_BOSS_HEALTH,
+        defense: STARTING_BOSS_DEFENSE
       }
     }
   }
@@ -116,9 +124,8 @@ class App extends Component {
 
 
     // number of monsters on the board
-    const monsterNumber = 20; // TODO: remove hard coding
     // create initial array of monsters
-    const monstersArray = helpers.createMonsters(monsterNumber);
+    const monstersArray = helpers.createMonsters(STARTING_MONSTER_TILES);
 
     // place all monsters on board
     // Monsters are kept in an array in state. They are independent from the markers
@@ -145,32 +152,28 @@ class App extends Component {
     initialMap[keyPosition.row][keyPosition.col] = TILE_KEY;
 
     // place weapon items on board
-    let numWeaponItems = 5; // TODO: remove hard coding
-    for (let i = 0; i < numWeaponItems; i++) {
+    for (let i = 0; i < STARTING_WEAPON_TILES; i++) {
       randomIndex = selectRandomIndex(allValidCharacterPositions);
       let weaponPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
       initialMap[weaponPosition.row][weaponPosition.col] = TILE_WEAPON;
     }
 
     // place armor items on board
-    let numArmorItems = 5; // TODO: remove hard coding
-    for (let i = 0; i < numArmorItems; i++) {
+    for (let i = 0; i < STARTING_ARMOR_TILES; i++) {
       randomIndex = selectRandomIndex(allValidCharacterPositions);
       let armorPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
       initialMap[armorPosition.row][armorPosition.col] = TILE_ARMOR;
     }
 
     // place torches on board
-    let numTorchItems = 10; // TODO: remove hard coding
-    for (let i = 0; i < numTorchItems; i++) {
+    for (let i = 0; i < STARTING_TORCH_TILES; i++) {
       randomIndex = selectRandomIndex(allValidCharacterPositions);
       let torchPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
       initialMap[torchPosition.row][torchPosition.col] = TILE_TORCH;
     }
 
     // place health items on board
-    let numHealthItems = 15; // TODO: remove hard coding
-    for (let i = 0; i < numHealthItems; i++) {
+    for (let i = 0; i < STARTING_HEALTH_TILES; i++) {
       randomIndex = selectRandomIndex(allValidCharacterPositions);
       let healthPosition = allValidCharacterPositions.splice(randomIndex, 1)[0];
       initialMap[healthPosition.row][healthPosition.col] = TILE_HEALTH;
@@ -210,10 +213,7 @@ class App extends Component {
 
           <h2>Dungeon Crawler</h2>
         </div>
-        <Map
-          map={this.state.viewPort}
-          visibilityMap={this.state.isVisibleArray}
-        />
+
 
         <HealthXP
           currentHealth={this.state.hero.health}
@@ -222,6 +222,10 @@ class App extends Component {
           nextXP={this.state.hero.nextXPLevel}
           level={this.state.hero.level}
         />
+        <Map
+          map={this.state.viewPort}
+          visibilityMap={this.state.isVisibleArray}
+        />
         <EquipmentStats
           currentWeapon={this.state.hero.weapon}
           currentArmor={this.state.hero.armor}
@@ -229,7 +233,7 @@ class App extends Component {
           hasKey={this.state.hero.hasKey}
           strength={this.state.hero.strength}
         />
-        {/* test map  
+        {/* test map
         <Map
           map={this.state.map}
           visibilityMap={this.state.revealedMap}

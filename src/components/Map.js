@@ -5,6 +5,7 @@ import heroImage from '../assets/hero.png'
 import {
   TILE_WALL,
   TILE_ROOM,
+  TILE_LOCKED_DOOR,
   TILE_BOSS_ROOM,
   TILE_HERO,
   TILE_MONSTER,
@@ -127,6 +128,13 @@ export default function Map(props) {
                 key={i + ', ' + j}
                 id={i + ', '+ j}
                 className="sprite tile-health"
+                />
+
+            : tile === TILE_LOCKED_DOOR
+              ? <div
+                key={i + ', ' + j}
+                id={i + ', '+ j}
+                className="sprite tile-locked-door"
                 />
 
             : null

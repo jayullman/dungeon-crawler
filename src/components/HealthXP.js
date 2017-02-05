@@ -10,16 +10,10 @@ export default function(props) {
   const level = props.level;
 
   return (
-    <div className="health-xp-box">
-      <div className="health-bar">
-        current health: {currentHealth}
-        max health: {maxHealth}
-      </div>
-      <div className="xp-bar">
-        Level: {level}
-        XP: {currentXP}
-        next level: {nextXP}
-      </div>
+    <div className="stat-box health-xp-box">
+      <div className="health-bar">Health: {currentHealth} / {maxHealth}</div>
+      <div className="level-indicator">Level: {level}</div>
+      <div className="xp-bar">XP: {currentXP} / {nextXP}</div>
     </div>
   );
 }

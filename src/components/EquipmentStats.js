@@ -10,19 +10,29 @@ export default function(props) {
   const strengthValue = props.strength;
 
   return (
-    <div className="equipment-box">
+    <div className="stat-box equipment-stats-box">
       <div className="weapon-box">
-        Current Weapon: {currentWeapon}
-        Attack Value: {strengthValue}
+        Current Weapon:<br/>
+        <span className="value-text">{currentWeapon}</span> <br/>
+        Attack Value:
+          <span className="value-text">&nbsp;{strengthValue}</span>
       </div>
       <div className="armor-box">
-        Current Armor: {currentArmor}
-        Defense Value: {defense}
+        Current Armor: <br/>
+        <span className="value-text">{currentArmor} </span><br/>
+        Defense Value:
+        <span className="value-text">&nbsp;{defense}</span>
       </div>
-      <div className="key-box">
-        Has Key: {hasKey ? 'Yes' : 'No'}
-      </div>
+      <div className="key-box-container">
+        Boss Room Key
+        <div
 
+          className={hasKey ? "key-box has-key-true" : "key-box"}
+        >
+
+
+        </div>
+      </div>
     </div>
   );
 }

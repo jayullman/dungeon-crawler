@@ -6,6 +6,7 @@ hero, boss, monster: Sithjester (http://untamed.wild-refuge.net/rmxpresources.ph
 sword: http://www.clker.com/clipart-6800.html
 shield: http://pngimg.com/download/1256
 health potion: http://www.clker.com/clipart-potions.html
+locked door: http://www.clipartkid.com/go-back-pix-for-locked-door-clip-art-ivEDru-clipart/
 */
 
 .App {
@@ -21,12 +22,83 @@ health potion: http://www.clker.com/clipart-potions.html
   color: white;
 }
 
-.health-xp-box {
-  
+.stat-box {
+  border: 1px solid #000;
+  background-color: #eee;
+  font-size: 2em;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+
+  box-shadow: -8px 8px 20px #333;
 }
 
+.health-xp-box {
+  align-items: center;
+  width: 50%;
+  max-width: 500px;
+
+
+  top: 10px;
+  height: 50px;
+  min-width: 300px;
+
+
+}
+
+.health-bar {
+
+}
+
+
+
+.level-indicator {
+  align-self: flex-start;
+}
+
+.equipment-stats-box {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  width: 60%;
+  min-width: 500px;
+
+  font-size: 1.8em;
+}
+
+.weapon-box {
+
+}
+
+.armor-box {
+
+}
+
+.value-text {
+  display: inline-block;
+  font-size: .75em;
+  margin: 5px 0 10px 0;
+}
+
+.key-box-container {
+  margin-top: -3px;
+}
+
+.key-box {
+  border: 3px solid #444;
+  width: 40px;
+  height: 40px;
+  margin: 3px auto 0 auto;
+}
+
+.has-key-true {
+  background: url('../assets/key.png') 0 0 no-repeat;
+}
+
+
 .map-container {
-  border: 1px solid #000;
+
   white-space: nowrap;
 }
 
@@ -64,26 +136,26 @@ health potion: http://www.clker.com/clipart-potions.html
 .tile-key {
   top: 0px;
   left: 5px;
-  width: 38px;
+  width: 40px;
   background: url('../assets/key.png') 0 0 no-repeat;
 }
 
 .tile-armor {
   top: 0px;
-  left: 5px;
+  left: -8px;
   width: 38px;
   background: url('../assets/armor.png') 0 0 no-repeat;
 }
 
 .tile-weapon {
-  top: 0px;
+  top: -10px;
   left: 5px;
   width: 38px;
   background: url('../assets/weapon.png') 0 0 no-repeat;
 }
 
 .tile-torch {
-  top: 0px;
+  top: -6px;
   left: 5px;
   width: 38px;
   background: url('../assets/torch.png') 0 0 no-repeat;
@@ -91,10 +163,20 @@ health potion: http://www.clker.com/clipart-potions.html
 
 .tile-health {
   top: 0px;
-  left: 5px;
+  left: -5px;
   width: 38px;
   background: url('../assets/health.png') 0 0 no-repeat;
 }
+
+.tile-locked-door {
+
+  top: -10px;
+  left: -5px;
+  width: 38px;
+  height: 50px;
+  background: url('../assets/locked_door.jpg') 0 0 no-repeat;
+}
+
 
 
 /*.tile-hero {

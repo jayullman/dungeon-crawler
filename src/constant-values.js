@@ -63,6 +63,19 @@ export const MAP_HEIGHT = 100;
 export const VIEWPORT_HEIGHT = 20;
 export const VIEWPORT_WIDTH = 30;
 
+export const STARTING_ARMOR_TILES = 5;
+export const STARTING_WEAPON_TILES = 5;
+export const STARTING_HEALTH_TILES = 5;
+export const STARTING_TORCH_TILES = 5;
+export const STARTING_MONSTER_TILES = 20;
+
+
+export const STARTING_BOSS_STRENGTH = 20;
+export const STARTING_BOSS_DEFENSE = 8;
+export const STARTING_BOSS_HEALTH = 50;
+
+
+
 // number of room tiles needed to have playable map
 export const MINIMUM_PLAYABLE_SPACE = 4000;
 

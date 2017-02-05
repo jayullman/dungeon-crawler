@@ -13,6 +13,7 @@ import {
   TILE_BOSS,
   TILE_KEY,
   TILE_WEAPON,
+  TILE_LOCKED_DOOR,
   TILE_ARMOR,
   TILE_HEALTH,
   TILE_TORCH,
@@ -109,8 +110,12 @@ export default function handleHeroMove(event) {
         this.setState({
           hero: {...this.state.hero, defense: this.state.hero.defense + randomBonus,
             armor: armorName},
-
         });
+      } else if (tileValue === TILE_LOCKED_DOOR) {
+        if (this.state.hero.hasKey) {
+          removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+        }
+
       }
       console.log(this.state.hero);
       // future tile under hero
@@ -158,6 +163,14 @@ export default function handleHeroMove(event) {
           helpers.killMonster.call(this, monsterIndex);
           // update viewport after monster dies, used to avoid having to move
           // before viewport is updated
+
+
+          // check XP level of player and level up if needed
+          if (this.state.hero.XP >= this.state.hero.nextXPLevel) {
+            console.log('level');
+            helpers.levelUpHero.call(this);
+          }
+
           let newViewPort = helpers.createViewPort(this.state.heroPosition, newMapArray, this.state.visibilityArray);
           this.setState({viewPort: newViewPort})
 
