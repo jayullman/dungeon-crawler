@@ -31,13 +31,13 @@ export default function handleHeroMove(event) {
 
   // lockout input if player won or lost
   // pressing enter will allow the player to play again
-  if (this.state.playerDied || this.state.playerWon) {
+  if (this.state.playerDied || this.state.playerWon || this.state.showInstructions) {
     if (event.keyCode === RETURN_KEY) {
+      if (this.state.showInstructions) {
+        this.setState({ showInstructions: false });
+      }
       helpers.restartGame.call(this);
     }
-
-
-
     return;
   }
 

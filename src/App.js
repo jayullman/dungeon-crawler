@@ -9,7 +9,10 @@ import handleHeroMove from './handleHeroMove';
 import initializeGame from './initializeGame';
 import GameLostScreen from './components/GameLostScreen';
 import GameWonScreen from './components/GameWonScreen';
+import Instructions from './components/Instructions';
 
+import Header from './components/Header';
+import Footer from './components/Footer';
 import EquipmentStats from './components/EquipmentStats';
 import HealthXP from './components/HealthXP';
 
@@ -56,7 +59,8 @@ class App extends Component {
      * torchValue: area revealed around player, must be even
     */
 
-    this.state = STARTING_STATE;
+    // sets starting state, shows instructions when app is first loaded
+    this.state = {...STARTING_STATE, showInstructions: true};
 
   }
 
@@ -80,11 +84,17 @@ class App extends Component {
     helpers.restartGame.call(this);
   }
 
+  // closes instruction screen
+  handleOKButton = () => {
+    this.setState({ showInstructions: false })
+  }
+
   render() {
     return (
       <div className="App">
         {this.state.playerDied
-          ? <GameLostScreen
+          ?
+          <GameLostScreen
               handlePlayAgainButton={this.handlePlayAgainButton}
            />
           : null}
@@ -93,10 +103,13 @@ class App extends Component {
                 handlePlayAgainButton={this.handlePlayAgainButton}
               />
             : null}
-        <div className="App-header">
+          {this.state.showInstructions
+            ? <Instructions
+                handleOKButton={this.handleOKButton}
+             />
+            : null}
 
-          <h2>Dungeon Crawler</h2>
-        </div>
+        <Header />
 
 
         <HealthXP
@@ -123,6 +136,7 @@ class App extends Component {
           visibilityMap={this.state.revealedMap}
         />
         */}
+        <Footer />
       </div>
     );
   }

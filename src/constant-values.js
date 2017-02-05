@@ -121,5 +121,6 @@ export const STARTING_STATE = {
     defense: STARTING_BOSS_DEFENSE
   },
   playerDied: false,
-  playerWon: false
+  playerWon: false,
+  showInstructions: false
 };

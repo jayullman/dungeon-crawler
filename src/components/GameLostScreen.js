@@ -7,7 +7,7 @@ export default function(props) {
 
   return (
     <div>
-      <div className="backdrop-dead">  </div>
+      <div className="backdrop backdrop-dead">  </div>
         <div className="game-lost-window">
 
           <p>YOU DIED!</p>
@@ -16,10 +16,6 @@ export default function(props) {
             onClick={props.handlePlayAgainButton}
             >Play Again?</button>
         </div>
-
-
-
-
     </div>
   )
 

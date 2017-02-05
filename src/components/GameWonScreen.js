@@ -6,7 +6,7 @@ export default function(props) {
 
   return (
     <div>
-      <div className="backdrop-won">  </div>
+      <div className="backdrop backdrop-won">  </div>
         <div className="game-won-window">
 
           <p>WON!</p>
@@ -15,10 +15,6 @@ export default function(props) {
             onClick={props.handlePlayAgainButton}
             >Play Again?</button>
         </div>
-
-
-
-
     </div>
   )
 
