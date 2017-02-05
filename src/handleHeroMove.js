@@ -16,6 +16,8 @@ import {
   TILE_ARMOR,
   TILE_HEALTH,
   TILE_TORCH,
+  WEAPON_NAMES,
+  ARMOR_NAMES,
   MINIMUM_PLAYABLE_SPACE
 } from './constant-values';
 
@@ -87,15 +89,26 @@ export default function handleHeroMove(event) {
         });
       } else if (tileValue === TILE_WEAPON) {
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+        let weaponName = helpers.generateRandomItemName(WEAPON_NAMES);
+        // get a random strength bonus 1-3
+        let randomBonus = Math.floor(Math.random() * 3) + 1
+        // adds random bonus to the weapon name
+        weaponName += ` (+${randomBonus})`;
         this.setState({
-          hero: {...this.state.hero, strength: this.state.hero.strength + 1,
-            weapon: 'TODO'}
+          hero: {...this.state.hero, strength: this.state.hero.strength + randomBonus,
+            weapon: weaponName}
         });
+        console.log(this.state.hero.weapon);
       } else if (tileValue === TILE_ARMOR) {
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
+        let armorName = helpers.generateRandomItemName(ARMOR_NAMES);
+        // get a random defense bonus 1-3
+        let randomBonus = Math.floor(Math.random() * 3) + 1
+        // adds random bonus to the armor name
+        armorName += ` (+${randomBonus})`;
         this.setState({
-          hero: {...this.state.hero, defense: this.state.hero.defense + 1,
-            armor: 'TODO'},
+          hero: {...this.state.hero, defense: this.state.hero.defense + randomBonus,
+            armor: armorName},
 
         });
       }

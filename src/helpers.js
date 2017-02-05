@@ -14,8 +14,25 @@ import {
   MAP_WIDTH,
   MAP_HEIGHT,
   TILE_HIDDEN,
-  TILE_TORCH
+  TILE_TORCH,
+  NOUNS,
+  ADVERBS
 } from './constant-values';
+
+// pass in weaponNames or armorNames arrays
+export function generateRandomItemName(itemArray) {
+  let itemName = '';
+  function selectRandomItemFromArray(arr) {
+    let randomWord = arr[Math.floor(Math.random() * arr.length)];
+    return randomWord;
+  }
+
+  itemName += selectRandomItemFromArray(itemArray);
+  itemName += ' of ' + selectRandomItemFromArray(ADVERBS);
+  itemName += ' ' + selectRandomItemFromArray(NOUNS);
+
+  return itemName;
+}
 
 export function initializeVisibilityMap(revealed) {
   let isVisibleArray = [];
@@ -348,12 +365,12 @@ export function createViewPort(heroPosition, fullMap, visibilityMap) {
 
   if (viewPortEndRow > ROW_LIMIT) {
     viewPortEndRow = ROW_LIMIT;
-    viewPortBeginRow = ROW_LIMIT - VIEWPORT_WIDTH;
+    viewPortBeginRow = ROW_LIMIT - VIEWPORT_HEIGHT;
 
   }
   if (viewPortEndCol > COL_LIMIT) {
     viewPortEndCol = COL_LIMIT;
-    viewPortBeginCol = COL_LIMIT - VIEWPORT_HEIGHT;
+    viewPortBeginCol = COL_LIMIT - VIEWPORT_WIDTH;
   }
 
   let row;

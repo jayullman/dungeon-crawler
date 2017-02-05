@@ -26,6 +26,35 @@ export const TILE_HEALTH = 6;
 export const TILE_HIDDEN = 12;
 export const TILE_TORCH = 13;
 
+export const WEAPON_NAMES = [
+  'Mace',
+  'Greatsword',
+  'Dagger',
+  'Axe',
+  'Club',
+  'Spear'
+];
+
+export const ARMOR_NAMES = [
+  'Armor',
+  'Cape',
+  'Helmet'
+]
+
+export const ADVERBS = [
+  'Incomparable',
+  'Great',
+  'Absolute',
+  'Outrageous',
+  'Awe-inspiring'
+];
+
+export const NOUNS =[
+  'Awesomeness',
+  'Power',
+  'Domination',
+];
+
 
 
 // map and viewport values
