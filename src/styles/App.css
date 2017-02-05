@@ -142,7 +142,7 @@ locked door: http://www.clipartkid.com/go-back-pix-for-locked-door-clip-art-ivED
 
 .tile-armor {
   top: 0px;
-  left: -8px;
+  left: -5px;
   width: 38px;
   background: url('../assets/armor.png') 0 0 no-repeat;
 }
@@ -156,14 +156,14 @@ locked door: http://www.clipartkid.com/go-back-pix-for-locked-door-clip-art-ivED
 
 .tile-torch {
   top: -6px;
-  left: 5px;
+  left: -8px;
   width: 38px;
   background: url('../assets/torch.png') 0 0 no-repeat;
 }
 
 .tile-health {
   top: 0px;
-  left: -5px;
+  left: -10px;
   width: 38px;
   background: url('../assets/health.png') 0 0 no-repeat;
 }
@@ -177,8 +177,71 @@ locked door: http://www.clipartkid.com/go-back-pix-for-locked-door-clip-art-ivED
   background: url('../assets/locked_door.jpg') 0 0 no-repeat;
 }
 
+.backdrop-dead {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(160, 20, 20, .2);
+}
 
+.backdrop-won {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 220, 220, .2);
+}
 
-/*.tile-hero {
-  background-image: image('../assets/hero.png');
-}*/
+.game-lost-window {
+  font-size: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #eee;
+  border: 3px solid #333;
+  position: fixed;
+  z-index: 1000;
+  padding: 5px;
+  top: 350px;
+  width: 300px;
+  height: 100px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  border-radius: 20px;
+}
+
+.game-won-window {
+  font-size: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #eee;
+  border: 3px solid #333;
+  position: fixed;
+  z-index: 1000;
+  padding: 5px;
+  top: 350px;
+  width: 300px;
+  height: 100px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  border-radius: 20px;
+}
+
+.btn-window {
+  font-size: .75em;
+  margin-bottom: 10px;
+  border: 3px solid #000;
+  background-color: #fff;
+  color: #000;
+  width: 100px;
+}

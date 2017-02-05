@@ -2,6 +2,7 @@ export const UP_KEY = 38;
 export const RIGHT_KEY = 39;
 export const DOWN_KEY = 40;
 export const LEFT_KEY = 37;
+export const RETURN_KEY = 13;
 
 export const NORTH = 'NORTH';
 export const SOUTH = 'SOUTH';
@@ -25,6 +26,8 @@ export const TILE_ARMOR = 14;
 export const TILE_HEALTH = 6;
 export const TILE_HIDDEN = 12;
 export const TILE_TORCH = 13;
+
+
 
 export const WEAPON_NAMES = [
   'Mace',
@@ -55,8 +58,6 @@ export const NOUNS =[
   'Domination',
 ];
 
-
-
 // map and viewport values
 export const MAP_WIDTH = 100;
 export const MAP_HEIGHT = 100;
@@ -69,16 +70,19 @@ export const STARTING_HEALTH_TILES = 5;
 export const STARTING_TORCH_TILES = 5;
 export const STARTING_MONSTER_TILES = 20;
 
-
 export const STARTING_BOSS_STRENGTH = 20;
 export const STARTING_BOSS_DEFENSE = 8;
 export const STARTING_BOSS_HEALTH = 50;
 
-
+export const STARTING_HERO_HEALTH = 20;
+export const STARTING_HERO_STRENGTH = 4;
+export const STARTING_HERO_DEFENSE = 0;
+export const STARTING_MAX_HEALTH = 20;
+export const STARTING_NEXT_XP_LEVEL = 100;
+export const STARTING_TORCH_VALUE = 12;
 
 // number of room tiles needed to have playable map
 export const MINIMUM_PLAYABLE_SPACE = 4000;
-
 
 // GAMEPLAY
 // TODO: add xp from killing monster
@@ -86,3 +90,36 @@ export const XP_FROM_MONSTER = 20;
 
 // value added to hero's health when healed
 export const HEAL_VALUE = 15;
+
+export const STARTING_STATE = {
+  map: [],
+  viewPort: [],
+  visibilityArray: [],
+  // for testing, array of all true values
+  revealedMap: [],
+  heroPosition: {},
+  hero: {
+    health: STARTING_HERO_HEALTH,
+    maxHealth: STARTING_MAX_HEALTH,
+    strength: STARTING_HERO_STRENGTH,
+    defense: STARTING_HERO_DEFENSE,
+    hasKey: false,
+    XP: 0,
+    nextXPLevel: STARTING_NEXT_XP_LEVEL,
+    level: 1,
+    torchValue: STARTING_TORCH_VALUE,
+    weapon: 'Fists',
+    armor: 'Dirty Rags'
+  },
+  tileUnderHero: TILE_ROOM,
+  // monsters property will hold an array of monster objects which
+  // will describe their type, health, and map location
+  monsters: [],
+  boss: {
+    strength: STARTING_BOSS_STRENGTH,
+    health: STARTING_BOSS_HEALTH,
+    defense: STARTING_BOSS_DEFENSE
+  },
+  playerDied: false,
+  playerWon: false
+};

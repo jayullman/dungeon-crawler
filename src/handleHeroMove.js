@@ -1,12 +1,15 @@
 // function handles when the hero moves and interacts with items
 // and monsters on the board
 import * as helpers from './helpers';
+import initializeGame from './initializeGame';
+
 
 import {
   UP_KEY,
   RIGHT_KEY,
   DOWN_KEY,
   LEFT_KEY,
+  RETURN_KEY,
   TILE_ROOM,
   TILE_HERO,
   TILE_MONSTER,
@@ -25,6 +28,19 @@ import {
 export default function handleHeroMove(event) {
   // removes the tile at the given position and replaces with
   // tile value given
+
+  // lockout input if player won or lost
+  // pressing enter will allow the player to play again
+  if (this.state.playerDied || this.state.playerWon) {
+    if (event.keyCode === RETURN_KEY) {
+      helpers.restartGame.call(this);
+    }
+
+
+
+    return;
+  }
+
   function removeTileFromBoard(position, tileValue) {
     let newMapArray = [...this.state.map];
     newMapArray[position.row][position.col] = tileValue;
@@ -117,7 +133,7 @@ export default function handleHeroMove(event) {
         }
 
       }
-      console.log(this.state.hero);
+      console.log(this.state);
       // future tile under hero
       const oldTile = newMapArray[nextPosition.row][nextPosition.col];
       newMapArray[currentHeroPosition.row][currentHeroPosition.col] = this.state.tileUnderHero;
@@ -148,15 +164,13 @@ export default function handleHeroMove(event) {
         });
         helpers.damageHero.call(this, monsterIndex);
         helpers.damageMonster.call(this, monsterIndex);
-        console.log('monster health: ', this.state.monsters[monsterIndex].health);
-        console.log('hero health: ', this.state.hero.health);
-        console.log(this.state.monsters.length);
-
 
         // check if monster or hero have died
         if (this.state.hero.health < 1) {
           console.log('hero died! game over');
           // TODO: create game over logic
+          this.setState({playerDied: true});
+
 
         } else if (this.state.monsters[monsterIndex].health < 1) {
           // destroy monster, remove from board, array, and give player experience
@@ -183,6 +197,7 @@ export default function handleHeroMove(event) {
         if (this.state.hero.health < 1) {
           console.log('hero died! game over');
           // TODO: create game over logic
+          this.setState({playerDied: true});
       } else if (this.state.boss.health < 1) {
         // win game
         // before viewport is updated
@@ -193,5 +208,6 @@ export default function handleHeroMove(event) {
       }
 
     }
+
   }
 }

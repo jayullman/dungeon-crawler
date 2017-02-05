@@ -1,3 +1,5 @@
+import initializeGame from './initializeGame';
+
 import {
   TILE_HERO,
   TILE_ROOM,
@@ -17,8 +19,14 @@ import {
   TILE_TORCH,
   NOUNS,
   ADVERBS,
-  XP_FROM_MONSTER
+  XP_FROM_MONSTER,
+  STARTING_STATE
 } from './constant-values';
+
+export function restartGame() {
+  this.setState(STARTING_STATE)
+  initializeGame.call(this);
+}
 
 // pass in weaponNames or armorNames arrays
 export function generateRandomItemName(itemArray) {
@@ -295,9 +303,12 @@ export function damageHero(monsterIndex) {
   if (damageValue < 0) {
     damageValue = 0;
   }
-
+  let newHealthValue = this.state.hero.health - damageValue;
+  if (newHealthValue < 0) {
+    newHealthValue = 0;
+  }
   this.setState({
-    hero: {...this.state.hero, health: this.state.hero.health - damageValue}
+    hero: {...this.state.hero, health: newHealthValue}
   })
 }
 
