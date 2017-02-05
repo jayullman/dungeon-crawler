@@ -49,6 +49,8 @@ class App extends Component {
       map: [],
       viewPort: [],
       visibilityArray: [],
+      // for testing, array of all true values
+      revealedMap: [],
       heroPosition: {},
       hero: {
         health: 20,
@@ -66,7 +68,12 @@ class App extends Component {
       tileUnderHero: TILE_ROOM,
       // monsters property will hold an array of monster objects which
       // will describe their type, health, and map location
-      monsters: []
+      monsters: [],
+      boss: {
+        strength: 10,
+        health: 40,
+        defense: 5
+      }
     }
   }
 
@@ -171,9 +178,11 @@ class App extends Component {
 
 
     // initialize visibility map
-    let visibilityArray = helpers.initializeVisibilityMap();
+    let visibilityArray = helpers.initializeVisibilityMap(false);
     visibilityArray = helpers.removeHiddenMap(heroPosition, visibilityArray);
 
+    // create open map for testing
+    let revealedMap = helpers.initializeVisibilityMap(true);
 
     // create viewport
     const viewPort = helpers.createViewPort(heroPosition, initialMap, visibilityArray);
@@ -183,6 +192,7 @@ class App extends Component {
       map: initialMap,
       viewPort: viewPort,
       visibilityArray: visibilityArray,
+      revealedMap: revealedMap,
       heroPosition: heroPosition,
       monsters: monstersArray
     });
@@ -219,7 +229,12 @@ class App extends Component {
           hasKey={this.state.hero.hasKey}
           strength={this.state.hero.strength}
         />
-
+        {/* test map  
+        <Map
+          map={this.state.map}
+          visibilityMap={this.state.revealedMap}
+        />
+        */}
       </div>
     );
   }

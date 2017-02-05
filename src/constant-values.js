@@ -27,14 +27,20 @@ export const TILE_HIDDEN = 12;
 export const TILE_TORCH = 13;
 
 
-// value added to hero's health when healed
-export const HEAL_VALUE = 15;
 
 // map and viewport values
 export const MAP_WIDTH = 100;
 export const MAP_HEIGHT = 100;
-export const VIEWPORT_HEIGHT = 40;
-export const VIEWPORT_WIDTH = 40;
+export const VIEWPORT_HEIGHT = 20;
+export const VIEWPORT_WIDTH = 30;
 
 // number of room tiles needed to have playable map
 export const MINIMUM_PLAYABLE_SPACE = 4000;
+
+
+// GAMEPLAY
+// TODO: add xp from killing monster
+export const XP_FROM_MONSTER = 20;
+
+// value added to hero's health when healed
+export const HEAL_VALUE = 15;

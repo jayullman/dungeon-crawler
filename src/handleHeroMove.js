@@ -148,13 +148,24 @@ export default function handleHeroMove(event) {
           let newViewPort = helpers.createViewPort(this.state.heroPosition, newMapArray, this.state.visibilityArray);
           this.setState({viewPort: newViewPort})
 
-
-          // NOTE: mosters are not disappearing until after hero moves
-          // has to do with viewport not updating
         }
+      } if (tileValue === TILE_BOSS) {
+        helpers.damageHero.call(this, null);
+        helpers.damageMonster.call(this, null);
+
+        // check if monster or hero have died
+        if (this.state.hero.health < 1) {
+          console.log('hero died! game over');
+          // TODO: create game over logic
+      } else if (this.state.boss.health < 1) {
+        // win game
+        // before viewport is updated
+        let newViewPort = helpers.createViewPort(this.state.heroPosition, newMapArray, this.state.visibilityArray);
+        this.setState({viewPort: newViewPort});
+        console.log('You won!');
+        // TODO: create game win logic
       }
-      // TODO: add item cases here
 
     }
-
   }
+}

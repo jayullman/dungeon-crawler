@@ -17,13 +17,13 @@ import {
   TILE_TORCH
 } from './constant-values';
 
-export function initializeVisibilityMap() {
+export function initializeVisibilityMap(revealed) {
   let isVisibleArray = [];
   let row = [];
   for (var i = 0; i < MAP_WIDTH; i++) {
     row = [];
     for (var j = 0; j < MAP_HEIGHT; j++) {
-      row.push(false);
+      row.push(revealed);
     }
     isVisibleArray.push(row);
   }
@@ -136,6 +136,7 @@ export function isMoveValid(position, map, hasKey) {
   let nextPosition = map[position.row][position.col];
 
   if (nextPosition === TILE_ROOM
+    || nextPosition === TILE_BOSS_ROOM
     || nextPosition === TILE_DOOR
     || nextPosition === TILE_KEY
     || nextPosition === TILE_HEALTH
@@ -230,27 +231,49 @@ export function findAllValidBossSpaces(map) {
   return validLocations;
 }
 
+// if monsterIndex = null, it is the boss
 export function damageMonster(monsterIndex) {
-  const damageValue = Math.floor(Math.random() * this.state.hero.strength) + 1;
-  const currentMonsterHealth = this.state.monsters[monsterIndex].health;
-  const prevMonsterState = this.state.monsters[monsterIndex];
+  let damageValue = Math.floor(Math.random() * this.state.hero.strength) + 1;
+
+  if (monsterIndex !== null) {
+    const currentMonsterHealth = this.state.monsters[monsterIndex].health;
+    const prevMonsterState = this.state.monsters[monsterIndex];
 
 
-  const newMonsterState = {...prevMonsterState, health: currentMonsterHealth - damageValue};
-  const newMonstersArray = [...this.state.monsters];
+    const newMonsterState = {...prevMonsterState, health: currentMonsterHealth - damageValue};
+    const newMonstersArray = [...this.state.monsters];
 
-  newMonstersArray.splice(monsterIndex, 1, newMonsterState);
+    newMonstersArray.splice(monsterIndex, 1, newMonsterState);
 
-  this.setState({
-    monsters: newMonstersArray
-  });
+    this.setState({
+      monsters: newMonstersArray
+    });
+  // for  boss
+  } else {
+    damageValue -= this.state.boss.defense;
+    const newBossHealth = this.state.boss.health - damageValue;
+    const prevBossState = this.state.boss;
+
+    this.setState({
+      boss: {...prevBossState, health: newBossHealth}
+    });
+  }
 }
 
+// if monsterIndex = null, it is the boss
 export function damageHero(monsterIndex) {
-  let damageValue = Math.floor(Math.random()
-    * this.state.monsters[monsterIndex].strength) + 1
-    - this.state.hero.defense;
+  let damageValue;
+  if (monsterIndex !== null) {
+    damageValue = Math.floor(Math.random()
+      * this.state.monsters[monsterIndex].strength) + 1
+      - this.state.hero.defense;
 
+  // for boss
+  } else {
+    damageValue = Math.floor(Math.random()
+      * this.state.boss.strength) + 1
+      - this.state.hero.defense;
+  }
   if (damageValue < 0) {
     damageValue = 0;
   }

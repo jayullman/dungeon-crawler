@@ -1,3 +1,13 @@
+/*
+Icon attributioins:
+torch: http://www.freeiconspng.com/free-images/torch-png-35806
+key: https://maxcdn.icons8.com/Share/icon/Very_Basic//key1600.png
+hero, boss, monster: Sithjester (http://untamed.wild-refuge.net/rmxpresources.php?characters)
+sword: http://www.clker.com/clipart-6800.html
+shield: http://pngimg.com/download/1256
+health potion: http://www.clker.com/clipart-potions.html
+*/
+
 .App {
   text-align: center;
   font-size: .5em;
@@ -6,7 +16,7 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 30px;
   padding: 20px;
   color: white;
 }
@@ -16,15 +26,73 @@
   white-space: nowrap;
 }
 
-
 .tile {
   display: inline-block;
-  width: 15px;
-  height: 15px;
-  border: 1px solid #000;
-
+  width: 30px;
+  height: 30px;
+  /*border: 1px solid #000;*/
+  vertical-align: bottom;
+  background-color: #eee;
+  /*overflow: visible;*/
 }
 
-.hero {
-  background-color: 'yello';
+.sprite {
+  position: relative;
+  left: -5px;
+  top: -10px;
+  width: 30px;
+  height: 45px;
 }
+
+
+.tile-hero {
+  background: url('../assets/hero.png') 0 0;
+}
+
+.tile-boss {
+  background: url('../assets/boss.png') 0 0;
+}
+
+.tile-monster {
+  background: url('../assets/monster.png') 0 0;
+}
+
+.tile-key {
+  top: 0px;
+  left: 5px;
+  width: 38px;
+  background: url('../assets/key.png') 0 0 no-repeat;
+}
+
+.tile-armor {
+  top: 0px;
+  left: 5px;
+  width: 38px;
+  background: url('../assets/armor.png') 0 0 no-repeat;
+}
+
+.tile-weapon {
+  top: 0px;
+  left: 5px;
+  width: 38px;
+  background: url('../assets/weapon.png') 0 0 no-repeat;
+}
+
+.tile-torch {
+  top: 0px;
+  left: 5px;
+  width: 38px;
+  background: url('../assets/torch.png') 0 0 no-repeat;
+}
+
+.tile-health {
+  top: 0px;
+  left: 5px;
+  width: 38px;
+  background: url('../assets/health.png') 0 0 no-repeat;
+}
+
+
+/*.tile-hero {
+  background-image: image('../assets/hero.png');
+}*/
