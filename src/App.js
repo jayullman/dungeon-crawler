@@ -1,3 +1,5 @@
+// BUG: BOSS sometimes gains health after getting damaged
+
 import React, { Component } from 'react';
 import './styles/App.css';
 import Map from './components/Map';
@@ -17,28 +19,6 @@ import EquipmentStats from './components/EquipmentStats';
 import HealthXP from './components/HealthXP';
 
 import {
-  UP_KEY,
-  RIGHT_KEY,
-  DOWN_KEY,
-  LEFT_KEY,
-  TILE_ROOM,
-  TILE_HERO,
-  TILE_MONSTER,
-  TILE_BOSS,
-  TILE_KEY,
-  TILE_WEAPON,
-  TILE_HEALTH,
-  TILE_ARMOR,
-  TILE_TORCH,
-  STARTING_BOSS_STRENGTH,
-  STARTING_BOSS_HEALTH,
-  STARTING_BOSS_DEFENSE,
-  MINIMUM_PLAYABLE_SPACE,
-  STARTING_ARMOR_TILES,
-  STARTING_WEAPON_TILES,
-  STARTING_HEALTH_TILES,
-  STARTING_TORCH_TILES,
-  STARTING_MONSTER_TILES,
   STARTING_STATE
 } from './constant-values';
 
@@ -122,6 +102,11 @@ class App extends Component {
         <Map
           map={this.state.viewPort}
           visibilityMap={this.state.isVisibleArray}
+          showDamage={this.state.showDamage}
+          damageFromMonster={this.state.lastDamageByMonster}
+          damageToMonster={this.state.lastDamageToMonster}
+          monsterMaxHealth={this.state.lastAttackedMonsterMaxHealth}
+          lastMoveDirection={this.state.lastMoveDirectionAttempt}
         />
         <EquipmentStats
           currentWeapon={this.state.hero.weapon}

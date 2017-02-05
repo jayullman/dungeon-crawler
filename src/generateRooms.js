@@ -1,8 +1,6 @@
 // function will take in blank map array and output an array with
 // rooms hollowed out connected by hallways
 
-import * as helpers from './helpers';
-
 import {
   NORTH,
   SOUTH,
@@ -10,7 +8,6 @@ import {
   WEST,
   TILE_BOSS_ROOM,
   TILE_ROOM,
-  TILE_HALL,
   TILE_WALL,
   TILE_DOOR,
   TILE_LOCKED_DOOR,
@@ -18,11 +15,6 @@ import {
   MAP_WIDTH,
   MAP_HEIGHT
 } from './constant-values';
-
-var roomNumber = 2;
-
-const roomWidth = 10;
-const roomHeight = 10;
 
 function getRandomLocation(map) {
   const ROW_LIMIT = map.length;
@@ -63,27 +55,8 @@ export default function generateRooms(map) {
   while (!tempMap);
 
   newMap = tempMap;
-  //
-  // if (newMap[bossRoomStartPosition.row][bossRoomStartPosition.col] === 1) {
-  //
-  //   // return original newMap if hollowRoom returns false
-  //   newMap = hollowRoom(bossRoomStartPosition, newMap) || newMap;
-  //
-  //
-  // } else {
-  //
-  // }
-  //
 
-  // make all other non-boss rooms
-
-  // pop a random direction off of the directions array
-  // let num = Math.floor(Math.random() * 4);
-  // console.log(num);
-  // let directions = [...DIRECTIONS];
-  // let randomDirection = directions.splice(num, 1)[0];
-
- newMap = makeRooms(null, bossRoomStartPosition, newMap);
+  newMap = makeRooms(null, bossRoomStartPosition, newMap);
 
   return newMap;
 }
@@ -234,7 +207,6 @@ function makeRooms(originDirection, originRoom, map) {
   tempMap = hollowRoom(newRoom, tileType, map);
   // if room creation is successful
   if (tempMap) {
-    roomNumber++;
     tempMap = attachDoor(randomDirection, originRoom, newRoom, tempMap);
 
     newMap = tempMap;

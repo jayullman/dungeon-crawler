@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
-
-import heroImage from '../assets/hero.png'
+import React from 'react';
 
 import {
   TILE_WALL,
-  TILE_ROOM,
   TILE_LOCKED_DOOR,
-  TILE_BOSS_ROOM,
   TILE_HERO,
   TILE_MONSTER,
   TILE_BOSS,
@@ -15,29 +11,19 @@ import {
   TILE_ARMOR,
   TILE_HEALTH,
   TILE_HIDDEN,
-  TILE_TORCH
+  TILE_TORCH,
+  UP_KEY,
+  RIGHT_KEY,
+  DOWN_KEY,
+  LEFT_KEY,
 } from '../constant-values';
 
 
 export default function Map(props) {
   const mapArray = props.map;
-  // rows will be an array of <div> elements
-  // let rows = [];
-  // let key = 2;
-  //
-  // for (let i = 0; i < mapArray.length; i++) {
-  //   let row = mapArray[i].map(tile => {
-  //
-  //     return <div key={i} className="tile">{tile}</div>
-  //   });
-  //   rows.push(row);
-  //   rows.push(<br/>);
-  // }
 
   let newMap = [];
   let color = null;
-  let className = 'tile';
-  let backgroundImage = null;
   // TODO: remove hard coded colors
   for (var i = 0; i < mapArray.length; i++) {
     for (var j = 0; j < mapArray[i].length; j++) {
@@ -50,24 +36,31 @@ export default function Map(props) {
         color = null;
       }
 
+      // TODO: figure out how to make div float above hero
+      let heroDamageStyle = null;
+      let monsterDamagerStyle = null;
+      // if damage indicators should be displayed
+      if (props.showDamage) {
+        if (tile === TILE_HERO) {
+          if (props.lastMoveDirection === UP_KEY) {
+            // TODO
+          } else if (props.lastMoveDirection === RIGHT_KEY) {
+            // TODO
+          } else if (props.lastMoveDirection === DOWN_KEY) {
+            // TODO
+
+          } else if (props.lastMoveDirection === LEFT_KEY) {
+            // TODO
+
+          }
+
+
+
+          console.log(heroDamageStyle);
+        }
+      }
       let tileToAdd;
 
-      // if (tile === TILE_HERO) {
-      //   tileToAdd = <div
-      //     // TODO: remove hard coding
-      //     style={{backgroundColor: color}}
-      //     key={i + ', ' + j}
-      //     id={i + ', '+ j}
-      //     className="tile">
-      //   >
-      //     <div
-      //       key={i + ', ' + j}
-      //       id={i + ', '+ j}
-      //       className="sprite"/>
-      //   </div>
-      //
-      //
-      // } else {
         tileToAdd = <div
           // TODO: remove hard coding
           style={{backgroundColor: color}}
@@ -75,12 +68,31 @@ export default function Map(props) {
           id={i + ', '+ j}
           className="tile"
         >
+          {/* TODO: remove this, add to monster tile somehow */}
+          {i === 0 & j === 0
+            ? <div className="damage-readout damage-readout-monster"></div>
+            : null
+          }
+
+
+          {/* if props.showDamage === true,
+              add div to sprite div to display damage
+            */}
           {tile === TILE_HERO
             ? <div
                 key={i + ', ' + j}
                 id={i + ', '+ j}
                 className="sprite tile-hero"
-              />
+              >
+                {props.showDamage
+                  ? <div
+                      style={heroDamageStyle}
+                      className="damage-readout damage-readout-hero"
+                    >
+                      {props.damageFromMonster}
+                    </div>
+                  : null}
+              </div>
             : tile === TILE_BOSS
               ? <div
                 key={i + ', ' + j}

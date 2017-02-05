@@ -154,7 +154,7 @@ a:hover {
 
 
 .map-container {
-
+  position: relative;
   white-space: nowrap;
 }
 
@@ -178,6 +178,7 @@ a:hover {
 
 
 .tile-hero {
+  position: relative;
   background: url('../assets/hero.png') 0 0;
 }
 
@@ -191,7 +192,7 @@ a:hover {
 
 .tile-key {
   top: 0px;
-  left: 5px;
+  left: -5px;
   width: 40px;
   background: url('../assets/key.png') 0 0 no-repeat;
 }
@@ -342,4 +343,21 @@ a:hover {
 .instructions-window h5 {
   text-align: left;
   padding: 0 20px;
+}
+
+/* small readout boxes to be displayed when characters are damaged */
+.damage-readout {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  border: 2px solid black;
+}
+
+.damage-readout-hero {
+  color: red;
+}
+
+.damage-readout-monster {
+  background-color: yellow;
+
 }

@@ -1,8 +1,6 @@
 // function handles when the hero moves and interacts with items
 // and monsters on the board
 import * as helpers from './helpers';
-import initializeGame from './initializeGame';
-
 
 import {
   UP_KEY,
@@ -22,7 +20,6 @@ import {
   TILE_TORCH,
   WEAPON_NAMES,
   ARMOR_NAMES,
-  MINIMUM_PLAYABLE_SPACE
 } from './constant-values';
 
 export default function handleHeroMove(event) {
@@ -63,23 +60,31 @@ export default function handleHeroMove(event) {
         event.preventDefault();
 
         nextPosition = helpers.getUpPosition(currentHeroPosition);
+        this.setState({lastMoveDirectionAttempt: UP_KEY});
         break;
 
       case RIGHT_KEY:
         event.preventDefault();
 
         nextPosition = helpers.getRightPosition(currentHeroPosition);
+        this.setState({lastMoveDirectionAttempt: RIGHT_KEY});
+
         break;
 
       case DOWN_KEY:
         event.preventDefault();
 
         nextPosition = helpers.getDownPosition(currentHeroPosition);
+        this.setState({lastMoveDirectionAttempt: DOWN_KEY});
+
         break;
 
       case LEFT_KEY:
         event.preventDefault();
+
         nextPosition = helpers.getLeftPosition(currentHeroPosition);
+        this.setState({lastMoveDirectionAttempt: LEFT_KEY});
+
         break;
 
       default:

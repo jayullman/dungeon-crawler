@@ -64,6 +64,9 @@ export const MAP_HEIGHT = 100;
 export const VIEWPORT_HEIGHT = 20;
 export const VIEWPORT_WIDTH = 30;
 
+export const TILE_WIDTH = 30;
+export const TILE_HEIGTH = 30;
+
 export const STARTING_ARMOR_TILES = 5;
 export const STARTING_WEAPON_TILES = 5;
 export const STARTING_HEALTH_TILES = 5;
@@ -122,5 +125,10 @@ export const STARTING_STATE = {
   },
   playerDied: false,
   playerWon: false,
-  showInstructions: false
+  showInstructions: false,
+  showDamage: true,
+  lastDamageByMonster: 0,
+  lastDamageToMonster: 0,
+  lastAttackedMonsterMaxHealth: 0,
+  lastMoveDirectionAttempt: ""
 };

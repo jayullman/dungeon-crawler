@@ -3,14 +3,7 @@
 import * as helpers from './helpers';
 import generateRooms from './generateRooms';
 
-
-
 import {
-  UP_KEY,
-  RIGHT_KEY,
-  DOWN_KEY,
-  LEFT_KEY,
-  TILE_ROOM,
   TILE_HERO,
   TILE_MONSTER,
   TILE_BOSS,
@@ -19,9 +12,6 @@ import {
   TILE_HEALTH,
   TILE_ARMOR,
   TILE_TORCH,
-  STARTING_BOSS_STRENGTH,
-  STARTING_BOSS_HEALTH,
-  STARTING_BOSS_DEFENSE,
   MINIMUM_PLAYABLE_SPACE,
   STARTING_ARMOR_TILES,
   STARTING_WEAPON_TILES,
