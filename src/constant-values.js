@@ -77,6 +77,9 @@ export const STARTING_BOSS_STRENGTH = 20;
 export const STARTING_BOSS_DEFENSE = 8;
 export const STARTING_BOSS_HEALTH = 50;
 
+export const STARTING_MONSTER_MAX_HEALTH = 15;
+export const STARTING_MONSTER_STRENGTH = 5;
+
 export const STARTING_HERO_HEALTH = 20;
 export const STARTING_HERO_STRENGTH = 4;
 export const STARTING_HERO_DEFENSE = 0;
@@ -126,9 +129,9 @@ export const STARTING_STATE = {
   playerDied: false,
   playerWon: false,
   showInstructions: false,
-  showDamage: true,
+  showDamage: false,
   lastDamageByMonster: 0,
-  lastDamageToMonster: 0,
+  lastAttackedMonsterCurrentHealth: 0,
   lastAttackedMonsterMaxHealth: 0,
   lastMoveDirectionAttempt: ""
 };

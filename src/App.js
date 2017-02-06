@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import './styles/App.css';
-import Map from './components/Map';
+import ViewPort from './components/ViewPort';
 
 // import listener from './keyboard_listeners';
 import * as helpers from './helpers';
@@ -22,7 +22,8 @@ import {
   STARTING_STATE
 } from './constant-values';
 
-
+// TODO: Add button to regenerate map
+//       restartGame()
 class App extends Component {
   constructor() {
     super();
@@ -99,12 +100,12 @@ class App extends Component {
           nextXP={this.state.hero.nextXPLevel}
           level={this.state.hero.level}
         />
-        <Map
+        <ViewPort
           map={this.state.viewPort}
           visibilityMap={this.state.isVisibleArray}
           showDamage={this.state.showDamage}
           damageFromMonster={this.state.lastDamageByMonster}
-          damageToMonster={this.state.lastDamageToMonster}
+          monsterCurrentHealth={this.state.lastAttackedMonsterCurrentHealth}
           monsterMaxHealth={this.state.lastAttackedMonsterMaxHealth}
           lastMoveDirection={this.state.lastMoveDirectionAttempt}
         />

@@ -206,7 +206,7 @@ a:hover {
 
 .tile-weapon {
   top: -10px;
-  left: 5px;
+  left: -5px;
   width: 38px;
   background: url('../assets/weapon.png') 0 0 no-repeat;
 }
@@ -255,7 +255,7 @@ a:hover {
 }
 
 .backdrop-instructions {
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, .8);
 }
 
 .game-lost-window {
@@ -306,11 +306,11 @@ a:hover {
   position: fixed;
   z-index: 1000;
   padding: 5px;
-  top: 350px;
-  width: 80%;
+  top: 50px;
+  width: 60%;
 
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   color: #000;
   border-radius: 20px;
 }
@@ -339,8 +339,7 @@ a:hover {
 }
 
 .instructions-window p,
-.instructions-window dl,
-.instructions-window h5 {
+.instructions-window dl {
   text-align: left;
   padding: 0 20px;
 }
@@ -348,16 +347,16 @@ a:hover {
 /* small readout boxes to be displayed when characters are damaged */
 .damage-readout {
   position: absolute;
-  width: 100px;
+  width: 20px;
   height: 20px;
-  border: 2px solid black;
 }
 
 .damage-readout-hero {
   color: red;
+  top: -10px;
+  left: 5px;
 }
 
 .damage-readout-monster {
-  background-color: yellow;
-
+  color: blue;
 }

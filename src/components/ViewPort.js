@@ -36,21 +36,28 @@ export default function Map(props) {
         color = null;
       }
 
-      // TODO: figure out how to make div float above hero
+      // TODO: Move sprite image based on walking direction
       let heroDamageStyle = null;
-      let monsterDamagerStyle = null;
+      let monsterDamageStyle = null;
       // if damage indicators should be displayed
+      // depending on which was the last direction moved will indicate
+      // where the monster is located. Positions damage indicator accordinglu
       if (props.showDamage) {
         if (tile === TILE_HERO) {
           if (props.lastMoveDirection === UP_KEY) {
-            // TODO
+            heroDamageStyle = {top: '0px', left: '40px'};
+            monsterDamageStyle = {top: '-50px', left: '20px'};
+
           } else if (props.lastMoveDirection === RIGHT_KEY) {
-            // TODO
+            monsterDamageStyle = {top: '-15px', left: '40px'};
+            heroDamageStyle = {left: '-10px'};
+
           } else if (props.lastMoveDirection === DOWN_KEY) {
-            // TODO
+            monsterDamageStyle = {top: '40px', left: '40px'};
 
           } else if (props.lastMoveDirection === LEFT_KEY) {
-            // TODO
+            monsterDamageStyle = {top: '-15px', left: '-30px'};
+            heroDamageStyle = {left: '10px'};
 
           }
 
@@ -68,11 +75,6 @@ export default function Map(props) {
           id={i + ', '+ j}
           className="tile"
         >
-          {/* TODO: remove this, add to monster tile somehow */}
-          {i === 0 & j === 0
-            ? <div className="damage-readout damage-readout-monster"></div>
-            : null
-          }
 
 
           {/* if props.showDamage === true,
@@ -89,9 +91,21 @@ export default function Map(props) {
                       style={heroDamageStyle}
                       className="damage-readout damage-readout-hero"
                     >
-                      {props.damageFromMonster}
+                      - {props.damageFromMonster}
                     </div>
                   : null}
+
+                  {props.showDamage
+                    ? <div
+                        style={monsterDamageStyle}
+                        className="damage-readout damage-readout-monster"
+                      >
+                        {props.monsterCurrentHealth}
+                         &nbsp;/ {props.monsterMaxHealth}
+                    </div>
+                    : null
+                  }
+
               </div>
             : tile === TILE_BOSS
               ? <div

@@ -95,6 +95,13 @@ export default function handleHeroMove(event) {
     if (helpers.isMoveValid(nextPosition, this.state.map, this.state.hero.hasKey)) {
       // TODO: make random weapon and armor name generator
       // handle items that player can move through
+
+
+      // remove damage indicator if hero is no longer fighting
+      if (this.state.showDamage) {
+        this.setState({showDamage: false});
+      }
+
       if (tileValue === TILE_HEALTH) {
         helpers.healHero.call(this);
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
@@ -182,6 +189,11 @@ export default function handleHeroMove(event) {
           helpers.killMonster.call(this, monsterIndex);
           // update viewport after monster dies, used to avoid having to move
           // before viewport is updated
+
+          // remove damage indicator if monster dies
+          if (this.state.showDamage) {
+            this.setState({showDamage: false});
+          }
 
 
           // check XP level of player and level up if needed

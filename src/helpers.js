@@ -20,7 +20,10 @@ import {
   NOUNS,
   ADVERBS,
   XP_FROM_MONSTER,
-  STARTING_STATE
+  STARTING_STATE,
+  STARTING_MONSTER_MAX_HEALTH,
+  STARTING_MONSTER_STRENGTH,
+  STARTING_BOSS_HEALTH
 } from './constant-values';
 
 export function restartGame() {
@@ -208,9 +211,10 @@ export function placeMonsters(monstersArray, map) {
 // monster constructor
 function Monster() {
   // TODO: make health variable, possibly based on board
-  this.health = 10;
-  this.strength = 5;
   this.level = 1;
+  this.strength = STARTING_MONSTER_STRENGTH;
+  this.maxHealth = STARTING_MONSTER_MAX_HEALTH;
+  this.health = STARTING_MONSTER_MAX_HEALTH;
 }
 
 export function getRandomMapLocation(map) {
@@ -263,16 +267,19 @@ export function damageMonster(monsterIndex) {
 
   if (monsterIndex !== null) {
     const currentMonsterHealth = this.state.monsters[monsterIndex].health;
+    const newMonsterHealth = currentMonsterHealth - damageValue;
     const prevMonsterState = this.state.monsters[monsterIndex];
+    const currentMonsterMaxHealth = this.state.monsters[monsterIndex].maxHealth;
 
-
-    const newMonsterState = {...prevMonsterState, health: currentMonsterHealth - damageValue};
+    const newMonsterState = {...prevMonsterState, health: newMonsterHealth};
     const newMonstersArray = [...this.state.monsters];
 
     newMonstersArray.splice(monsterIndex, 1, newMonsterState);
 
     this.setState({
-      monsters: newMonstersArray
+      monsters: newMonstersArray,
+      lastAttackedMonsterCurrentHealth: newMonsterHealth,
+      lastAttackedMonsterMaxHealth: currentMonsterMaxHealth
     });
   // for  boss
   } else {
@@ -281,7 +288,9 @@ export function damageMonster(monsterIndex) {
     const prevBossState = this.state.boss;
 
     this.setState({
-      boss: {...prevBossState, health: newBossHealth}
+      boss: {...prevBossState, health: newBossHealth},
+      lastAttackedMonsterCurrentHealth: newBossHealth,
+      lastAttackedMonsterMaxHealth: STARTING_BOSS_HEALTH
     });
   }
 }
@@ -289,6 +298,8 @@ export function damageMonster(monsterIndex) {
 // if monsterIndex = null, it is the boss
 export function damageHero(monsterIndex) {
   let damageValue;
+
+
   if (monsterIndex !== null) {
     damageValue = Math.floor(Math.random()
       * this.state.monsters[monsterIndex].strength) + 1
@@ -308,7 +319,9 @@ export function damageHero(monsterIndex) {
     newHealthValue = 0;
   }
   this.setState({
-    hero: {...this.state.hero, health: newHealthValue}
+    hero: {...this.state.hero, health: newHealthValue},
+    lastDamageByMonster: damageValue,
+    showDamage: true
   })
 }
 
