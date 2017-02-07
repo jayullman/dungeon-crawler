@@ -45,7 +45,7 @@ export default function(props) {
             <dt><img src={weaponImg} alt="weapon icon"/>Weapon</dt>
             <dd>Increases your attack value</dd>
             <dt><img src={armorImg} alt="armor icon"/>Armor</dt>
-            <dd>Increase your defense value</dd>
+            <dd>Increases your defense value</dd>
             <dt><img src={healthImg} alt="health icon"/>Health Potion</dt>
             <dd>Heals some battle damage</dd>
             <dt><img src={keyImg} alt="key icon"/>Key</dt>
