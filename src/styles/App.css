@@ -16,7 +16,7 @@ body {
 .App {
   text-align: center;
   font-size: .5em;
-  min-width: 550px;
+  min-width: 750px;
   margin: 0;
 }
 
@@ -80,6 +80,13 @@ h1.title {
   text-decoration: none;
 }
 
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin: 2px 0 6px 10px;
+}
 
 a:link, a:visited, a:active {
   color: #9018cd;
@@ -202,7 +209,7 @@ a:hover {
 
 .tile-hero {
   position: relative;
-  /*background: url('../assets/hero.png') 0 0;*/
+  background: url('../assets/hero.png') 0 0;
 }
 
 .tile-boss {
@@ -265,7 +272,6 @@ a:hover {
   bottom: 0;
   width: 100%;
   min-height: 100vh;
-  /*height: 100vh;*/
 }
 
 
@@ -323,19 +329,19 @@ a:hover {
 
 .instructions-window {
   font-size: 2em;
-
   background-color: #eee;
   border: 3px solid #333;
-  position: fixed;
+  position: relative;
   z-index: 1000;
   padding: 5px;
-  top: 50px;
-  width: 60%;
-
+  top: 30px;
+  width: 70%;
   left: 50%;
+  /*max-height: 100vh;*/
   transform: translateX(-50%);
   color: #000;
   border-radius: 20px;
+  overflow: scroll;
 }
 
 .btn {
@@ -356,9 +362,10 @@ a:hover {
 .btn-regenerate {
   font-size: 12px;
   position: absolute;
-  right: -50px;
-  bottom: -50px;
+  right: 0px;
+  bottom: 0px;
   width: 130px;
+  margin: 0;
 }
 
 .btn:hover {

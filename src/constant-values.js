@@ -62,7 +62,7 @@ export const NOUNS =[
 export const MAP_WIDTH = 100;
 export const MAP_HEIGHT = 100;
 export const VIEWPORT_HEIGHT = 20;
-export const VIEWPORT_WIDTH = 30;
+export const VIEWPORT_WIDTH = 22;
 
 export const TILE_WIDTH = 30;
 export const TILE_HEIGTH = 30;
