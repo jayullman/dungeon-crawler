@@ -17,16 +17,22 @@ body {
   text-align: center;
   font-size: .5em;
   min-width: 550px;
+  margin: 0;
 }
 
+h1.title {
+  padding: 0;
+  margin: 0;
+}
 .App-header {
   position: relative;
-  font-family: 'Lato', sans-serif;
-  font-size: 1em;
+  font-family: 'Itim', cursive;
+  font-size: 2.3em;
   text-align: center;
   background-color: #333;
-  height: 30px;
-  padding: 20px;
+  height: 80px;
+  line-height: 80px;
+  padding: 0px;
   color: #fff;
   margin-bottom: 10px;
   max-width: 700px;
@@ -36,6 +42,7 @@ body {
 
 .App-footer {
   font-family: 'Lato', sans-serif;
+  font-size: 2em;
   text-align: center;
   background-color: #333;
   height: 50px;
@@ -55,18 +62,22 @@ body {
 
 .App-header a:link, .App-header a:visited,
  .App-header a:active {
-	color: #000;
-  text-decoration: none;
+	color: #fff;
+  /*text-decoration: none;*/
 }
 
 .App-footer a:link, .App-footer a:visited,
  .App-footer a:active {
-	color: #000;
+	color: #fff;
+  border-bottom: 2px dotted #fff;
+
   text-decoration: none;
 }
 
 .App-header a:hover, .App-footer a:hover {
-  border-bottom: 2px dotted #fff;
+  border-bottom: 2px solid #fff;
+
+  text-decoration: none;
 }
 
 
@@ -343,9 +354,11 @@ a:hover {
 }
 
 .btn-regenerate {
+  font-size: 12px;
   position: absolute;
-  right: 0px;
+  right: -50px;
   bottom: -50px;
+  width: 130px;
 }
 
 .btn:hover {

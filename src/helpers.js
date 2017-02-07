@@ -284,6 +284,9 @@ export function damageMonster(monsterIndex) {
   // for  boss
   } else {
     damageValue -= this.state.boss.defense;
+    if (damageValue < 0) {
+      damageValue = 0;
+    }
     const newBossHealth = this.state.boss.health - damageValue;
     const prevBossState = this.state.boss;
 

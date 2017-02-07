@@ -9,7 +9,7 @@ export default function(props) {
       <div className="backdrop backdrop-won">  </div>
         <div className="game-won-window">
 
-          <p>WON!</p>
+          <p>YOU WIN!</p>
           <button
             className="btn btn-window"
             onClick={props.handlePlayAgainButton}
