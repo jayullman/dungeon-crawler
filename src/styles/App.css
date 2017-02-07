@@ -112,10 +112,11 @@ a:hover {
 }
 
 .equipment-stats-box {
+  padding: 5px 0;
   top: -10px;
   display: flex;
-  align-items: center;
-  height: 80px;
+  align-items: flex-start;
+  min-height: 60px;
   width: 60%;
   min-width: 500px;
 
@@ -130,10 +131,22 @@ a:hover {
 
 }
 
+/* attack and defense values */
 .value-text {
   display: inline-block;
   font-size: .75em;
   margin: 5px 0 10px 0;
+}
+
+.equipment-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* weapon and armor values */
+.equipment-text {
+  margin: 0;
 }
 
 .key-box-container {
@@ -170,7 +183,7 @@ a:hover {
 .sprite {
   position: relative;
   left: -5px;
-  top: -10px;
+  top: -15px;
   width: 30px;
   height: 45px;
 }
@@ -197,7 +210,7 @@ a:hover {
 }
 
 .tile-armor {
-  top: 0px;
+  top: -10px;
   left: -5px;
   width: 38px;
   background: url('../assets/armor.png') 0 0 no-repeat;
@@ -218,7 +231,7 @@ a:hover {
 }
 
 .tile-health {
-  top: 0px;
+  top: -10px;
   left: -10px;
   width: 38px;
   background: url('../assets/health.png') 0 0 no-repeat;

@@ -99,7 +99,7 @@ class App extends Component {
         <Header
           handleRegenerateMapButton={this.handleRegenerateMapButton}
          />
-        
+
 
 
         <HealthXP
@@ -119,8 +119,8 @@ class App extends Component {
           lastMoveDirection={this.state.lastMoveDirectionAttempt}
         />
         <EquipmentStats
-          currentWeapon={this.state.hero.weapon}
-          currentArmor={this.state.hero.armor}
+          weapons={this.state.hero.weapons}
+          armor={this.state.hero.armor}
           defense={this.state.hero.defense}
           hasKey={this.state.hero.hasKey}
           strength={this.state.hero.strength}

@@ -67,11 +67,11 @@ export const VIEWPORT_WIDTH = 30;
 export const TILE_WIDTH = 30;
 export const TILE_HEIGTH = 30;
 
-export const STARTING_ARMOR_TILES = 5;
-export const STARTING_WEAPON_TILES = 5;
-export const STARTING_HEALTH_TILES = 5;
+export const STARTING_ARMOR_TILES = 4;
+export const STARTING_WEAPON_TILES = 4;
+export const STARTING_HEALTH_TILES = 7;
 export const STARTING_TORCH_TILES = 5;
-export const STARTING_MONSTER_TILES = 20;
+export const STARTING_MONSTER_TILES = 15;
 
 export const STARTING_BOSS_STRENGTH = 20;
 export const STARTING_BOSS_DEFENSE = 8;
@@ -84,9 +84,17 @@ export const STARTING_HERO_HEALTH = 20;
 export const STARTING_HERO_STRENGTH = 4;
 export const STARTING_HERO_DEFENSE = 0;
 export const STARTING_MAX_HEALTH = 20;
-export const STARTING_NEXT_XP_LEVEL = 100;
+export const STARTING_NEXT_XP_LEVEL = 50;
 export const STARTING_TORCH_VALUE = 12;
 
+// the most a weapon can boost attack value
+export const MAX_WEAPON_ATTACK_BONUS = 2;
+
+// the most armor can boost defense value
+export const MAX_ARMOR_DEFENSE_BONUS = 2;
+
+export const STARTING_WEAPON = 'Fists';
+export const STARTING_ARMOR = 'Dirty Rags';
 // number of room tiles needed to have playable map
 export const MINIMUM_PLAYABLE_SPACE = 4000;
 
@@ -114,8 +122,8 @@ export const STARTING_STATE = {
     nextXPLevel: STARTING_NEXT_XP_LEVEL,
     level: 1,
     torchValue: STARTING_TORCH_VALUE,
-    weapon: 'Fists',
-    armor: 'Dirty Rags'
+    weapons: [STARTING_WEAPON],
+    armor: [STARTING_ARMOR]
   },
   tileUnderHero: TILE_ROOM,
   // monsters property will hold an array of monster objects which

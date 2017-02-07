@@ -296,14 +296,18 @@ export function damageMonster(monsterIndex) {
 }
 
 // if monsterIndex = null, it is the boss
+// damage is based off of monster level, which levels up when the here does
 export function damageHero(monsterIndex) {
   let damageValue;
 
+  // defense value is generated randomly with max being player's defense rating
+  let defenseValue = Math.floor(Math.random() * this.state.hero.defense);
 
   if (monsterIndex !== null) {
-    damageValue = Math.floor(Math.random()
-      * this.state.monsters[monsterIndex].strength) + 1
-      - this.state.hero.defense;
+    damageValue = (Math.floor(
+      Math.random() * this.state.monsters[monsterIndex].strength) + 1
+      * this.state.monsters[monsterIndex].level)
+      - defenseValue;
 
   // for boss
   } else {
@@ -336,6 +340,7 @@ export function selectMonsterFromPosition(position) {
   return index;
 }
 
+// levels up hero AND monsters
 export function levelUpHero() {
   let currentStrength = this.state.hero.strength;
   let currentDefense = this.state.hero.defense;
@@ -350,6 +355,13 @@ export function levelUpHero() {
 
   let newNextLevelXP = currentNextLevelXP + 50;
 
+  // level up all monsters
+  const monsters = [...this.state.monsters];
+  monsters.forEach(monster => {
+    monster.level = monster.level + 1;
+  });
+
+
   this.setState({
     hero: {
       ...this.state.hero,
@@ -360,7 +372,8 @@ export function levelUpHero() {
       nextXPLevel: newNextLevelXP,
       XP: 0,
       level: newLevel
-      }
+    },
+    monsters: monsters
   });
 
 }

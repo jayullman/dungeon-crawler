@@ -3,23 +3,36 @@
 import React from 'react';
 
 export default function(props) {
-  const currentWeapon = props.currentWeapon;
-  const currentArmor = props.currentArmor;
+  const weapons = props.weapons;
+  const armor = props.armor;
   const defense = props.defense;
   const hasKey = props.hasKey;
   const strengthValue = props.strength;
 
+  // create list of weapons and armor to display
+  const weaponsList = weapons.map((weapon) => {
+    return <span key={weapon} className="equipment-text value-text">{weapon}</span>
+  });
+
+  const armorList = armor.map((armor) => {
+    return <span key={armor} className="equipment-text value-text">{armor}</span>
+  });
+
   return (
     <div className="stat-box equipment-stats-box">
       <div className="weapon-box">
-        Current Weapon:<br/>
-        <span className="value-text">{currentWeapon}</span> <br/>
+        Weapons:
+        <div className="equipment-list-container">
+          {weaponsList}
+        </div>
         Attack Value:
           <span className="value-text">&nbsp;{strengthValue}</span>
       </div>
       <div className="armor-box">
-        Current Armor: <br/>
-        <span className="value-text">{currentArmor} </span><br/>
+        Armor:
+        <div className="equipment-list-container">
+          {armorList}
+        </div>
         Defense Value:
         <span className="value-text">&nbsp;{defense}</span>
       </div>

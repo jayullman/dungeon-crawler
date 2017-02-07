@@ -20,6 +20,10 @@ import {
   TILE_TORCH,
   WEAPON_NAMES,
   ARMOR_NAMES,
+  STARTING_ARMOR,
+  STARTING_WEAPON,
+  MAX_WEAPON_ATTACK_BONUS,
+  MAX_ARMOR_DEFENSE_BONUS
 } from './constant-values';
 
 export default function handleHeroMove(event) {
@@ -120,24 +124,37 @@ export default function handleHeroMove(event) {
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
         let weaponName = helpers.generateRandomItemName(WEAPON_NAMES);
         // get a random strength bonus 1-3
-        let randomBonus = Math.floor(Math.random() * 3) + 1
+        let randomBonus = Math.floor(Math.random() * MAX_WEAPON_ATTACK_BONUS) + 1
         // adds random bonus to the weapon name
         weaponName += ` (+${randomBonus})`;
+        let newWeaponsArray = [...this.state.hero.weapons, weaponName];
+
+        // removes starting weapon from array
+        if (newWeaponsArray[0] === STARTING_WEAPON) {
+          newWeaponsArray.splice(0, 1);
+        }
         this.setState({
           hero: {...this.state.hero, strength: this.state.hero.strength + randomBonus,
-            weapon: weaponName}
+            weapons: newWeaponsArray}
         });
+
         console.log(this.state.hero.weapon);
       } else if (tileValue === TILE_ARMOR) {
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
         let armorName = helpers.generateRandomItemName(ARMOR_NAMES);
         // get a random defense bonus 1-3
-        let randomBonus = Math.floor(Math.random() * 3) + 1
+        let randomBonus = Math.floor(Math.random() * MAX_ARMOR_DEFENSE_BONUS) + 1
         // adds random bonus to the armor name
         armorName += ` (+${randomBonus})`;
+        let newArmorArray = [...this.state.hero.armor, armorName];
+
+        // removes starting armor from array
+        if (newArmorArray[0] === STARTING_ARMOR) {
+          newArmorArray.splice(0, 1);
+        }
         this.setState({
           hero: {...this.state.hero, defense: this.state.hero.defense + randomBonus,
-            armor: armorName},
+            armor: newArmorArray},
         });
       } else if (tileValue === TILE_LOCKED_DOOR) {
         if (this.state.hero.hasKey) {

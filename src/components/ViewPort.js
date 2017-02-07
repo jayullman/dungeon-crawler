@@ -37,8 +37,8 @@ export default function Map(props) {
       }
 
       // TODO: Move sprite image based on walking direction
-      let heroDamageStyle = null;
-      let monsterDamageStyle = null;
+      let heroDamageStyle = {};
+      let monsterDamageStyle = {};
       // if damage indicators should be displayed
       // depending on which was the last direction moved will indicate
       // where the monster is located. Positions damage indicator accordinglu
