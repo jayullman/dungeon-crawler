@@ -85,7 +85,6 @@ export default function Map(props) {
 
         }
 
-        console.log(heroSpriteImg);
       }
 
 

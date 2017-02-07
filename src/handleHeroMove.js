@@ -138,7 +138,6 @@ export default function handleHeroMove(event) {
             weapons: newWeaponsArray}
         });
 
-        console.log(this.state.hero.weapon);
       } else if (tileValue === TILE_ARMOR) {
         removeTileFromBoard.call(this, nextPosition, TILE_ROOM);
         let armorName = helpers.generateRandomItemName(ARMOR_NAMES);

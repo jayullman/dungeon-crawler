@@ -16,7 +16,6 @@ import Instructions from './components/Instructions';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import EquipmentStats from './components/EquipmentStats';
-import HealthXP from './components/HealthXP';
 
 import {
   STARTING_STATE
@@ -112,15 +111,7 @@ class App extends Component {
            hasKey={this.state.hero.hasKey}
            strength={this.state.hero.strength}
          />
-         {/*  TODO: Remove Health Component
-        <HealthXP
-          currentHealth={this.state.hero.health}
-          maxHealth={this.state.hero.maxHealth}
-          currentXP={this.state.hero.XP}
-          nextXP={this.state.hero.nextXPLevel}
-          level={this.state.hero.level}
-        />
-        */}
+
         <ViewPort
           map={this.state.viewPort}
           visibilityMap={this.state.isVisibleArray}

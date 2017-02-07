@@ -361,7 +361,7 @@ export function levelUpHero() {
   // level up all monsters
   const monsters = [...this.state.monsters];
   monsters.forEach(monster => {
-    monster.level = monster.level + 1;
+    monster.level += 1;
   });
 
 
