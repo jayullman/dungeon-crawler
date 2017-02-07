@@ -100,8 +100,19 @@ class App extends Component {
           handleRegenerateMapButton={this.handleRegenerateMapButton}
          />
 
-
-
+         <EquipmentStats
+           currentHealth={this.state.hero.health}
+           maxHealth={this.state.hero.maxHealth}
+           currentXP={this.state.hero.XP}
+           nextXP={this.state.hero.nextXPLevel}
+           level={this.state.hero.level}
+           weapons={this.state.hero.weapons}
+           armor={this.state.hero.armor}
+           defense={this.state.hero.defense}
+           hasKey={this.state.hero.hasKey}
+           strength={this.state.hero.strength}
+         />
+         {/*  TODO: Remove Health Component
         <HealthXP
           currentHealth={this.state.hero.health}
           maxHealth={this.state.hero.maxHealth}
@@ -109,6 +120,7 @@ class App extends Component {
           nextXP={this.state.hero.nextXPLevel}
           level={this.state.hero.level}
         />
+        */}
         <ViewPort
           map={this.state.viewPort}
           visibilityMap={this.state.isVisibleArray}
@@ -118,13 +130,7 @@ class App extends Component {
           monsterMaxHealth={this.state.lastAttackedMonsterMaxHealth}
           lastMoveDirection={this.state.lastMoveDirectionAttempt}
         />
-        <EquipmentStats
-          weapons={this.state.hero.weapons}
-          armor={this.state.hero.armor}
-          defense={this.state.hero.defense}
-          hasKey={this.state.hero.hasKey}
-          strength={this.state.hero.strength}
-        />
+
         {/* test map
         <Map
           map={this.state.map}

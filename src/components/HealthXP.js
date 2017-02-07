@@ -11,9 +11,9 @@ export default function(props) {
 
   return (
     <div className="stat-box health-xp-box">
-      <div className="health-bar">Health: {currentHealth} / {maxHealth}</div>
-      <div className="level-indicator">Level: {level}</div>
-      <div className="xp-bar">XP: {currentXP} / {nextXP}</div>
+      <div className="health-bar"><span className="bold">Health:</span> {currentHealth} / {maxHealth}</div>
+      <div className="level-indicator"><span className="bold">Level:</span> {level}</div>
+      <div className="xp-bar"><span className="bold">XP:</span> {currentXP} / {nextXP}</div>
     </div>
   );
 }

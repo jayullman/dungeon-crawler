@@ -51,10 +51,10 @@ h6 {
   text-align: center;
   background-color: #333;
   height: 50px;
-  padding: 20px;
+  padding: 20px 20px 30px 20px;
   color: #fff;
   max-width: 700px;
-  margin: 0 auto;
+  margin: 10px auto 0 auto;
 }
 
 .App-footer small {
@@ -102,6 +102,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .stat-box {
   border: 1px solid #000;
   background-color: #eee;
@@ -115,13 +119,16 @@ a:hover {
 }
 
 .health-xp-box {
+  font-size: .8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: center;
+}
 
-  align-items: center;
-  width: 50%;
-  max-width: 500px;
-  top: 10px;
-  height: 50px;
-  min-width: 300px;
+.health-xp-box div {
+  margin-bottom: 3px;
 }
 
 .health-bar {
@@ -136,11 +143,11 @@ a:hover {
 
 .equipment-stats-box {
   padding: 5px 0;
-  top: -10px;
+  top: 10px;
   display: flex;
   align-items: flex-start;
   min-height: 60px;
-  width: 60%;
+  width: 85%;
   min-width: 500px;
 
   font-size: 1.8em;

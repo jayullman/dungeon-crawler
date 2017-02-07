@@ -9,6 +9,12 @@ export default function(props) {
   const hasKey = props.hasKey;
   const strengthValue = props.strength;
 
+  const currentHealth = props.currentHealth;
+  const maxHealth = props.maxHealth;
+  const currentXP = props.currentXP;
+  const nextXP = props.nextXP;
+  const level = props.level;
+
   // create list of weapons and armor to display
   const weaponsList = weapons.map((weapon) => {
     return <span key={weapon} className="equipment-text value-text">{weapon}</span>
@@ -20,6 +26,12 @@ export default function(props) {
 
   return (
     <div className="stat-box equipment-stats-box">
+      <div className="health-xp-box">
+        <div className="level-indicator"><span className="bold">Level:</span> {level}</div>
+        <div className="health-bar"><span className="bold">Health:</span> {currentHealth} / {maxHealth}</div>
+        <div className="xp-bar"><span className="bold">XP:</span> {currentXP} / {nextXP}</div>
+    </div>
+
       <div className="weapon-box">
         Weapons:
         <div className="equipment-list-container">
