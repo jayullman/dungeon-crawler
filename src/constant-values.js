@@ -35,13 +35,16 @@ export const WEAPON_NAMES = [
   'Dagger',
   'Axe',
   'Club',
-  'Spear'
+  'Spear',
+  'Brass Knuckles'
 ];
 
 export const ARMOR_NAMES = [
   'Armor',
   'Cape',
-  'Helmet'
+  'Helmet',
+  'Boots',
+  'Gloves'
 ]
 
 export const ADVERBS = [
@@ -49,13 +52,17 @@ export const ADVERBS = [
   'Great',
   'Absolute',
   'Outrageous',
-  'Awe-inspiring'
+  'Awe-inspiring',
+  'Considerable'
 ];
 
 export const NOUNS =[
   'Awesomeness',
   'Power',
   'Domination',
+  'Virtue',
+  'Veneration',
+  'Terror'
 ];
 
 // map and viewport values
