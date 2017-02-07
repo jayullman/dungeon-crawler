@@ -47,7 +47,7 @@ export default function(props) {
         </dl>
 
         <button
-          className="btn-window"
+          className="btn btn-window"
           onClick={props.handleOKButton}
           >Got it!</button>
       </div>

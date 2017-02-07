@@ -16,6 +16,7 @@ body {
 .App {
   text-align: center;
   font-size: .5em;
+  min-width: 550px;
 }
 
 .App-header {
@@ -86,20 +87,18 @@ a:hover {
   display: flex;
   justify-content: space-around;
   position: relative;
+  z-index: 1;
   box-shadow: -8px 8px 20px #333;
 }
 
 .health-xp-box {
+
   align-items: center;
   width: 50%;
   max-width: 500px;
-
-
   top: 10px;
   height: 50px;
   min-width: 300px;
-
-
 }
 
 .health-bar {
@@ -315,27 +314,37 @@ a:hover {
   border-radius: 20px;
 }
 
-.btn-window {
+.btn {
   font-size: .75em;
   margin-bottom: 10px;
   border: 3px solid #000;
   background-color: #fff;
   color: #000;
+  outline: 0;
   width: 100px;
   height: 30px;
-  outline: 0;
 }
 
-.btn-window:hover {
+.btn-window {
+
+}
+
+.btn-regenerate {
+  position: absolute;
+  right: 0px;
+  bottom: -50px;
+}
+
+.btn:hover {
   background-color: #000;
   border-color: #000;
   color: #fff;
 }
 
-.btn-window:active {
-  background-color: #000;
-  border-color: #fff;
-  color: #fff;
+.btn:active {
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
 }
 
 .instructions-window p,

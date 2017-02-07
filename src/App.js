@@ -28,6 +28,7 @@ class App extends Component {
   constructor() {
     super();
 
+
     /* State Properties
      * map: complete map information
      * viewPort: what the player sees, a scrolling subset of map
@@ -40,7 +41,7 @@ class App extends Component {
      * torchValue: area revealed around player, must be even
     */
 
-    // sets starting state, shows instructions when app is first loaded
+    // sets starting state, shows instructions when app is first loaded,
     this.state = {...STARTING_STATE, showInstructions: true};
 
   }
@@ -70,6 +71,11 @@ class App extends Component {
     this.setState({ showInstructions: false })
   }
 
+  // handle regenerate map button located in Header
+  handleRegenerateMapButton = () => {
+    helpers.restartGame.call(this);
+  }
+
   render() {
     return (
       <div className="App">
@@ -90,7 +96,10 @@ class App extends Component {
              />
             : null}
 
-        <Header />
+        <Header
+          handleRegenerateMapButton={this.handleRegenerateMapButton}
+         />
+        
 
 
         <HealthXP

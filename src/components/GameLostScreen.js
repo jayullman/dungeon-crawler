@@ -12,7 +12,7 @@ export default function(props) {
 
           <p>YOU DIED!</p>
           <button
-            className="btn-window"
+            className="btn btn-window"
             onClick={props.handlePlayAgainButton}
             >Play Again?</button>
         </div>
