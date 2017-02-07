@@ -40,18 +40,20 @@ export default function(props) {
           </p>
           <h5>Item Glossary</h5>
           <dl className="item-glossary">
-            <dt><img src={torchImg} alt="torch icon"/>Torch</dt>
-            <dd>Increases the distance you can see</dd>
-            <dt><img src={weaponImg} alt="weapon icon"/>Weapon</dt>
-            <dd>Increases your attack value</dd>
-            <dt><img src={armorImg} alt="armor icon"/>Armor</dt>
-            <dd>Increases your defense value</dd>
-            <dt><img src={healthImg} alt="health icon"/>Health Potion</dt>
-            <dd>Heals some battle damage</dd>
-            <dt><img src={keyImg} alt="key icon"/>Key</dt>
-            <dd>Opens the door to the Boss Room!</dd>
-
-
+            <div>
+              <dt><img src={torchImg} alt="torch icon"/>Torch</dt>
+              <dd>Increases the distance you can see</dd>
+              <dt><img src={weaponImg} alt="weapon icon"/>Weapon</dt>
+              <dd>Increases your attack value</dd>
+              <dt><img src={armorImg} alt="armor icon"/>Armor</dt>
+              <dd>Increases your defense value</dd>
+            </div>
+            <div>
+              <dt><img src={healthImg} alt="health icon"/>Health Potion</dt>
+              <dd>Heals some battle damage</dd>
+              <dt><img src={keyImg} alt="key icon"/>Key</dt>
+              <dd>Opens the door to the Boss Room!</dd>
+            </div>
           </dl>
 
           <h6>

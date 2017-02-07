@@ -85,13 +85,7 @@ h6 {
   text-decoration: none;
 }
 
-dt {
-  font-weight: bold;
-}
 
-dd {
-  margin: 2px 0 6px 10px;
-}
 
 a:link, a:visited, a:active {
   color: #9018cd;
@@ -347,9 +341,11 @@ a:hover {
   border: 3px solid #333;
   position: relative;
   z-index: 1000;
-  padding: 5px;
+  padding: 20px;
   top: 30px;
   width: 75%;
+  min-width: 330px;
+  max-width: 650px;
   left: 50%;
   transform: translateX(-50%);
   color: #000;
@@ -363,7 +359,31 @@ a:hover {
   /*margin-left: 30px;*/
   width: 55%;
   margin: 0 auto;
+}
 
+.instructions-window p {
+  text-align: left;
+}
+
+
+.item-glossary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 500px;
+  margin: 10px auto;
+}
+
+.item-glossary div {
+  margin: auto;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin: 2px 0 6px 10px;
 }
 
 .btn {
