@@ -24,6 +24,11 @@ h1.title {
   padding: 0;
   margin: 0;
 }
+
+h6 {
+  font-size: .8em;
+}
+
 .App-header {
   position: relative;
   font-family: 'Itim', cursive;
@@ -272,6 +277,7 @@ a:hover {
   bottom: 0;
   width: 100%;
   min-height: 100vh;
+  overflow: auto;
 }
 
 
@@ -328,20 +334,28 @@ a:hover {
 }
 
 .instructions-window {
-  font-size: 2em;
+  font-size: 1.8em;
   background-color: #eee;
   border: 3px solid #333;
   position: relative;
   z-index: 1000;
   padding: 5px;
   top: 30px;
-  width: 70%;
+  width: 75%;
   left: 50%;
-  /*max-height: 100vh;*/
   transform: translateX(-50%);
   color: #000;
   border-radius: 20px;
   overflow: scroll;
+}
+
+.instructions-window h5 {
+  border-bottom: 2px solid #333;
+  /*padding-left: 30px;*/
+  /*margin-left: 30px;*/
+  width: 55%;
+  margin: 0 auto;
+
 }
 
 .btn {

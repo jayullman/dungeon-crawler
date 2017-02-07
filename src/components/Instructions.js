@@ -1,7 +1,14 @@
 // this screen will show when the game is first loaded
 // it will explain the rules and objectives to the player
 
+
 import React from 'react';
+
+import torchImg from '../assets/torch.png';
+import weaponImg from '../assets/weapon.png';
+import armorImg from '../assets/armor.png';
+import healthImg from '../assets/health.png';
+import keyImg from '../assets/key.png';
 
 export default function(props) {
 
@@ -33,22 +40,22 @@ export default function(props) {
           </p>
           <h5>Item Glossary</h5>
           <dl className="item-glossary">
-            <dt>Torch</dt>
+            <dt><img src={torchImg} alt="torch icon"/>Torch</dt>
             <dd>This will increase the distance you can see</dd>
-            <dt>Weapon</dt>
+            <dt><img src={weaponImg} alt="weapon icon"/>Weapon</dt>
             <dd>Indicated by the sword tile, this will increase your attack value</dd>
-            <dt>Armor</dt>
+            <dt><img src={armorImg} alt="armor icon"/>Armor</dt>
             <dd>Indicated by the shield tile, this will increase your defense value</dd>
-            <dt>Health Potion</dt>
+            <dt><img src={healthImg} alt="health icon"/>Health Potion</dt>
             <dd>This will heal you</dd>
-            <dt>Key</dt>
+            <dt><img src={keyImg} alt="key icon"/>Key</dt>
             <dd>This will let you into the Boss Room!</dd>
 
 
           </dl>
 
-          <h5>
-            View this projects source code on&nbsp;
+          <h6>
+            View this project's source code on&nbsp;
             <a
               target="_blank"
               href="https://github.com/libeja/dungeon-crawler"
@@ -60,7 +67,7 @@ export default function(props) {
               >
               </i>
             </a>
-          </h5>
+          </h6>
 
           <button
             className="btn btn-window"
