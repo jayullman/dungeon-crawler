@@ -161,7 +161,6 @@ export default function handleHeroMove(event) {
         }
 
       }
-      console.log(this.state);
       // future tile under hero
       const oldTile = newMapArray[nextPosition.row][nextPosition.col];
       newMapArray[currentHeroPosition.row][currentHeroPosition.col] = this.state.tileUnderHero;
