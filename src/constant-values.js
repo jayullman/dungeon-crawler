@@ -45,7 +45,7 @@ export const ARMOR_NAMES = [
   'Helmet',
   'Boots',
   'Gloves'
-]
+];
 
 export const ADVERBS = [
   'Incomparable',
