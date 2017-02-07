@@ -376,6 +376,7 @@ a:hover {
 
 .item-glossary div {
   margin: auto;
+  text-align: left;
 }
 
 dt {

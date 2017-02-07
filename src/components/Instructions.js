@@ -49,7 +49,7 @@ export default function(props) {
               <dd>Increases your defense value</dd>
             </div>
             <div>
-              <dt><img src={healthImg} alt="health icon"/>Health Potion</dt>
+              <dt><img src={healthImg} alt="health icon"/> Health Potion</dt>
               <dd>Heals some battle damage</dd>
               <dt><img src={keyImg} alt="key icon"/>Key</dt>
               <dd>Opens the door to the Boss Room!</dd>
