@@ -18,6 +18,8 @@ import {
   LEFT_KEY,
 } from '../constant-values';
 
+import heroSpriteSheet from '../assets/hero.png';
+
 
 export default function Map(props) {
   const mapArray = props.map;
@@ -39,33 +41,54 @@ export default function Map(props) {
       // TODO: Move sprite image based on walking direction
       let heroDamageStyle = {};
       let monsterDamageStyle = {};
+
+
+
+      // use this sprite image for here. Alter position for different
+      // movement directions
+      let heroSpriteImg = {}
       // if damage indicators should be displayed
       // depending on which was the last direction moved will indicate
       // where the monster is located. Positions damage indicator accordinglu
-      if (props.showDamage) {
-        if (tile === TILE_HERO) {
-          if (props.lastMoveDirection === UP_KEY) {
-            heroDamageStyle = {top: '0px', left: '40px'};
-            monsterDamageStyle = {top: '-50px', left: '20px'};
 
-          } else if (props.lastMoveDirection === RIGHT_KEY) {
-            monsterDamageStyle = {top: '-15px', left: '40px'};
-            heroDamageStyle = {left: '-10px'};
+      if (tile === TILE_HERO) {
+        if (props.lastMoveDirection === UP_KEY) {
+          heroSpriteImg = {background: 'url(' + heroSpriteSheet + ') 0 47px'};
 
-          } else if (props.lastMoveDirection === DOWN_KEY) {
-            monsterDamageStyle = {top: '40px', left: '40px'};
-
-          } else if (props.lastMoveDirection === LEFT_KEY) {
-            monsterDamageStyle = {top: '-15px', left: '-30px'};
-            heroDamageStyle = {left: '10px'};
-
-          }
-
-
-
-          console.log(heroDamageStyle);
+          if (props.showDamage) {
+          heroDamageStyle = {top: '0px', left: '40px'};
+          monsterDamageStyle = {top: '-50px', left: '20px'};
         }
+
+        } else if (props.lastMoveDirection === RIGHT_KEY) {
+          heroSpriteImg = {background: 'url(' + heroSpriteSheet + ') 0 -96px'};
+
+          if (props.showDamage) {
+          monsterDamageStyle = {top: '-15px', left: '40px'};
+          heroDamageStyle = {left: '-10px'};
+        }
+
+        } else if (props.lastMoveDirection === DOWN_KEY) {
+          heroSpriteImg = {background: 'url(' + heroSpriteSheet +') 0 0'}
+
+          if (props.showDamage) {
+          monsterDamageStyle = {top: '40px', left: '40px'};
+        }
+
+        } else if (props.lastMoveDirection === LEFT_KEY) {
+          heroSpriteImg = {background: 'url(' + heroSpriteSheet + ') 0 -48px'};
+
+          if (props.showDamage) {
+          monsterDamageStyle = {top: '-15px', left: '-30px'};
+          heroDamageStyle = {left: '10px'};
+        }
+
+        }
+
+        console.log(heroSpriteImg);
       }
+
+
       let tileToAdd;
 
         tileToAdd = <div
@@ -85,6 +108,7 @@ export default function Map(props) {
                 key={i + ', ' + j}
                 id={i + ', '+ j}
                 className="sprite tile-hero"
+                style={heroSpriteImg}
               >
                 {props.showDamage
                   ? <div

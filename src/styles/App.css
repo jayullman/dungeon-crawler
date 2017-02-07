@@ -196,13 +196,13 @@ a:hover {
   left: -5px;
   top: -15px;
   width: 30px;
-  height: 45px;
+  height: 47px;
 }
 
 
 .tile-hero {
   position: relative;
-  background: url('../assets/hero.png') 0 0;
+  /*background: url('../assets/hero.png') 0 0;*/
 }
 
 .tile-boss {
