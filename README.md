@@ -10,7 +10,7 @@
 5. Much of the map is hidden. When I take a step, all spaces that are within a certain number of spaces from me are revealed.
 6. When I beat an enemy, the enemy goes away and I get XP, which eventually increases my level.
 7. When I fight an enemy, we take turns damaging each other until one of us loses. I do damage based off of my level and my weapon. The enemy does damage based off of its level. Damage is somewhat random within a range.
-8.When I find and beat the boss, I win.
+8. When I find and beat the boss, I win.
 9. The game should be challenging, but theoretically winnable.
 
 ## Dungeon Map Creation
