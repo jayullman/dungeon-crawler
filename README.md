@@ -2,7 +2,7 @@
 
 ## This was a project completed for freeCodeCamp's React and Data Viz certification.
 
-## User Story Requirements:
+### User Story Requirements:
 1. I have health, a level, and a weapon. I can pick up a better weapon. I can pick up health items.
 2. All the items and enemies on the map are arranged at random.
 3. I can move throughout a map, discovering items.
