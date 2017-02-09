@@ -97,10 +97,7 @@ export default function handleHeroMove(event) {
     }
     const tileValue = this.state.map[nextPosition.row][nextPosition.col];
     if (helpers.isMoveValid(nextPosition, this.state.map, this.state.hero.hasKey)) {
-      // TODO: make random weapon and armor name generator
       // handle items that player can move through
-
-
       // remove damage indicator if hero is no longer fighting
       if (this.state.showDamage) {
         this.setState({showDamage: false});
@@ -195,7 +192,6 @@ export default function handleHeroMove(event) {
         // check if monster or hero have died
         if (this.state.hero.health < 1) {
           console.log('hero died! game over');
-          // TODO: create game over logic
           this.setState({playerDied: true});
 
 
@@ -228,7 +224,6 @@ export default function handleHeroMove(event) {
         // check if monster or hero have died
         if (this.state.hero.health < 1) {
           console.log('hero died! game over');
-          // TODO: create game over logic
           this.setState({playerDied: true});
       } else if (this.state.boss.health < 1) {
         // win game
@@ -236,7 +231,6 @@ export default function handleHeroMove(event) {
         let newViewPort = helpers.createViewPort(this.state.heroPosition, newMapArray, this.state.visibilityArray);
         this.setState({viewPort: newViewPort});
         console.log('You won!');
-        // TODO: test win condition
         this.setState({playerWon: true});
       }
 

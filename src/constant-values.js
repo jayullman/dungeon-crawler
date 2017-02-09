@@ -106,7 +106,6 @@ export const STARTING_ARMOR = 'Dirty Rags';
 export const MINIMUM_PLAYABLE_SPACE = 4000;
 
 // GAMEPLAY
-// TODO: add xp from killing monster
 export const XP_FROM_MONSTER = 20;
 
 // value added to hero's health when healed

@@ -38,11 +38,8 @@ export default function Map(props) {
         color = null;
       }
 
-      // TODO: Move sprite image based on walking direction
       let heroDamageStyle = {};
       let monsterDamageStyle = {};
-
-
 
       // use this sprite image for here. Alter position for different
       // movement directions

@@ -210,7 +210,6 @@ export function placeMonsters(monstersArray, map) {
 
 // monster constructor
 function Monster() {
-  // TODO: make health variable, possibly based on board
   this.level = 1;
   this.strength = STARTING_MONSTER_STRENGTH;
   this.maxHealth = STARTING_MONSTER_MAX_HEALTH;

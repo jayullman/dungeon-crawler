@@ -21,8 +21,7 @@ import {
   STARTING_STATE
 } from './constant-values';
 
-// TODO: Add button to regenerate map
-//       restartGame()
+
 class App extends Component {
   constructor() {
     super();

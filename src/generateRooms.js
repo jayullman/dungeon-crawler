@@ -124,8 +124,7 @@ function hollowRoom(roomPosition, tileType, map) {
 // if originDirection is null, it is the first room, ie the boss room
 // roomPosition is the location of the top left corner of the room
 function makeRooms(originDirection, originRoom, map) {
-  // TODO: figure out how to build off of boss room
-  // select one door direction at random for the boss room,
+  // select one door direction at random for the boss room
   let directions = [];
   let newMap = [];
   let tempMap = [];
@@ -164,9 +163,6 @@ function makeRooms(originDirection, originRoom, map) {
 
     // will hold the position object for the new room
     var newRoom = {};
-
-    // TODO: write function that creates an array of possible door locations
-    // given the old room object, the new room object, and build direction
 
     // new rooms will be created 11 spaces away depending on direction.
     // 1 space will be reserved for the connecting hallway
