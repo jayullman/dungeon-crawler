@@ -18,24 +18,24 @@ export default function(props) {
         <div className="instructions-window">
 
           <h1>Welcome to <br/>My Dungeon Crawler Game!</h1>
-          <h4>This was a project built for the freeCodeCamp React and Data Viz Certification</h4>
+          <h4>A project for the freeCodeCamp React and Data Viz Certification</h4>
           <h5>How to Play</h5>
           <p>
-            The goal is to kill the boss! Unfortunately, he is locked in his
+            The goal of the game is to kill the boss! However, he is locked in his
             room and you must first find the key to his door. You can only see
             as far as your torch allows. Pick up more torches to see farther.
           </p>
           <p>
-            You can move around by using the arrow keys on your keyboard. You can
+            You can move around using the arrow keys on your keyboard. You can
             fight monsters and pick up items by moving into them.
           </p>
           <p>
             As you kill monsters, you will gain experience. If you gain enough experience,
-            you will level up, which will increase your max health, attack, and defense values. However,
+            you will level up,  increasing your maximum health, attack, and defense values. However,
             the monsters will also level up with you!
           </p>
           <p>
-            The dungeon is randomly generated through the use of a recursive algorithm, so if you don't
+            The dungeon is randomly generated, if you don't
             like this particular dungeon's layout, feel free to click the restart button :)
           </p>
           <h5>Item Glossary</h5>
