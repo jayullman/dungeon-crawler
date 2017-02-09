@@ -80,9 +80,9 @@ export const STARTING_HEALTH_TILES = 7;
 export const STARTING_TORCH_TILES = 5;
 export const STARTING_MONSTER_TILES = 15;
 
-export const STARTING_BOSS_STRENGTH = 20;
-export const STARTING_BOSS_DEFENSE = 6;
-export const STARTING_BOSS_HEALTH = 80;
+export const STARTING_BOSS_STRENGTH = 16;
+export const STARTING_BOSS_DEFENSE = 5;
+export const STARTING_BOSS_HEALTH = 60;
 
 export const STARTING_MONSTER_MAX_HEALTH = 15;
 export const STARTING_MONSTER_STRENGTH = 5;
