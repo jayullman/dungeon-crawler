@@ -17,7 +17,7 @@ export default function(props) {
       <div className="backdrop backdrop-instructions">
         <div className="instructions-window">
 
-          <h1>Welcome to <br/>My Dungeon Crawler Game!</h1>
+          <h1>Rogue-like Dungeon Crawler</h1>
           <h4>A project for the freeCodeCamp React and Data Viz Certification</h4>
           <h5>How to Play</h5>
           <p>
