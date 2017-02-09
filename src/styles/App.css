@@ -125,10 +125,6 @@ a:hover {
   margin-bottom: 3px;
 }
 
-.health-bar {
-
-}
-
 
 
 .level-indicator {
@@ -148,13 +144,6 @@ a:hover {
   font-size: 1.8em;
 }
 
-.weapon-box {
-
-}
-
-.armor-box {
-
-}
 
 /* attack and defense values */
 .value-text {
@@ -398,10 +387,6 @@ dd {
   outline: 0;
   width: 100px;
   height: 30px;
-}
-
-.btn-window {
-
 }
 
 .btn-regenerate {
