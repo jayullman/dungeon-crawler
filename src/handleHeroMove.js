@@ -191,7 +191,6 @@ export default function handleHeroMove(event) {
 
         // check if monster or hero have died
         if (this.state.hero.health < 1) {
-          console.log('hero died! game over');
           this.setState({playerDied: true});
 
 
@@ -209,7 +208,6 @@ export default function handleHeroMove(event) {
 
           // check XP level of player and level up if needed
           if (this.state.hero.XP >= this.state.hero.nextXPLevel) {
-            console.log('level');
             helpers.levelUpHero.call(this);
           }
 
@@ -223,14 +221,12 @@ export default function handleHeroMove(event) {
 
         // check if monster or hero have died
         if (this.state.hero.health < 1) {
-          console.log('hero died! game over');
           this.setState({playerDied: true});
       } else if (this.state.boss.health < 1) {
         // win game
         // before viewport is updated
         let newViewPort = helpers.createViewPort(this.state.heroPosition, newMapArray, this.state.visibilityArray);
         this.setState({viewPort: newViewPort});
-        console.log('You won!');
         this.setState({playerWon: true});
       }
 
