@@ -224,7 +224,6 @@ function attachDoor(direction, originRoom, newRoom, map) {
     ? true
     : false;
 
-    // BUG: East and South door placement is not working
   // all position on map where a door between the two rooms can exist
   let commonBorders = [];
   if (direction === NORTH) {

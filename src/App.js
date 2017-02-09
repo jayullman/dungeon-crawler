@@ -1,5 +1,3 @@
-// BUG: BOSS sometimes gains health after getting damaged
-
 import React, { Component } from 'react';
 import './styles/App.css';
 import ViewPort from './components/ViewPort';
