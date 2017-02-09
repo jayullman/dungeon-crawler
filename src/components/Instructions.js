@@ -35,8 +35,7 @@ export default function(props) {
             the monsters will also level up with you!
           </p>
           <p>
-            The dungeon is randomly generated, if you don't
-            like this particular dungeon's layout, feel free to click the restart button :)
+            The dungeon is randomly generated, click the Regenerate Map button for a new map.
           </p>
           <h5>Item Glossary</h5>
           <dl className="item-glossary">
