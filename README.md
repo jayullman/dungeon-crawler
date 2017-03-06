@@ -1,6 +1,6 @@
 # freeCodeCamp Dungeon Crawler
 
-## This was a project completed for freeCodeCamp's React and Data Viz certification.
+## Project completed for freeCodeCamp's React and Data Viz certification.
 
 ### User Story Requirements:
 1. I have health, a level, and a weapon. I can pick up a better weapon. I can pick up health items.
