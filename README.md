@@ -15,11 +15,11 @@
 
 ## Dungeon Map Creation
 
-When the game first loads, the dungeon is created by using a recursive algorithm that produces a random dungeon an a 2d array. First the boss room is placed on the map, out of which there is only one door. Every room after that, a random number between 1-3 is selected which will be how many rooms branch off of that particular room. Then directions are chosen at random. If a room can be placed in the next space, the process repeats for the next room. Once a room cannot be placed, the function recurses back to the previous room and another direction is selected. Once no more rooms can be placed, the map is complete. A check is also done, counting how many tiles are on the map to ensure that the map is large enough. If not, a new map is generated.
+When the game first loads, the dungeon is created using a recursive algorithm that produces a random dungeon oa a 2d array. First the boss room is placed on the map, into which there is only one door. Every room after that, a random number between 1-3 is selected which will be how many rooms branch off of that particular room. Then directions are chosen at random. If a room can be placed in the next space, the process repeats for the next room. Once a room cannot be placed, the function recurses back to the previous room and another direction is selected. Once no more rooms can be placed, the map is complete. A check is also done, counting how many tiles are on the map to ensure that the map is large enough. If not, a new map is generated.
 
-Once the map is generated, all of the room spaces are collected and pushed onto an array which are then chosen at random for item and monster placement. The boss room was created using seperate tile types so that only the boss and no other item and be placed within the boss room.
+Once the map is generated, all of the room spaces are collected and pushed onto an array which are then chosen at random for item and monster placement. The boss room was created using seperate tile types so that only the boss tile can be placed there.
 
-The hero is represented by a sprite image, which changes based on the direction the player last moved in.
+The hero is represented by a sprite image, which changes orientation based on the direction of the player's last move.
 
 ## App Architecture
 I used React.js for the view layer and to keep track of application state.
