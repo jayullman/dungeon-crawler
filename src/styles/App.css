@@ -1,5 +1,5 @@
 /*
-Icon attributioins:
+Icon attributions:
 torch: http://www.freeiconspng.com/free-images/torch-png-35806
 key: https://maxcdn.icons8.com/Share/icon/Very_Basic//key1600.png
 hero, boss, monster: Sithjester (http://untamed.wild-refuge.net/rmxpresources.php?characters)
@@ -339,7 +339,7 @@ a:hover {
   transform: translateX(-50%);
   color: #000;
   border-radius: 20px;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .instructions-window h5 {
