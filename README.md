@@ -2,7 +2,7 @@
 
 ## Project completed for freeCodeCamp's React and Data Viz certification.
 
-Live site: https://libeja.github.io/dungeon-crawler/
+Live site: https://jayullman.github.io/dungeon-crawler/
 
 ### User Story Requirements:
 1. I have health, a level, and a weapon. I can pick up a better weapon. I can pick up health items.
